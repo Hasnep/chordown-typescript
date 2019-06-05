@@ -6,8 +6,8 @@ import {
   removeSync
 } from "fs-extra";
 import * as yaml from "js-yaml";
+import * as path from "path";
 import { get_file_path } from "./string-functions";
-import "path";
 
 export function get_filename(): string {
   // gets the name of the file passed as a commandline argument
@@ -34,7 +34,7 @@ export function read_file_smart(filepath: string): string {
 export function write_file_smart(text: string, filename: string): void {
   make_sure_folder(get_file_path(filename));
   try {
-    writeFileSync(filename, text,{});
+    writeFileSync(filename, text, {});
   } catch (err) {
     console.error(`Could not write to '${filename}'.`);
   }
@@ -51,24 +51,13 @@ export function path_to_list_of_files(folder_path: string): string[] {
 }
 
 function make_sure_folder(folder_path: string): void {
-  // try {
   mkdirSync(folder_path, { recursive: true });
-  // } catch (err) {
-  //   console.log("AAAAAAAAAAAAAAAA");
-  //   if (err.code == "EEXIST") {
-  //     console.log(folder_path + " already exists");
-  //   } else {
-  //     throw err;
-  //   }
-  // } finally {
-  //   console.log(folder_path + " created");
-  // }
 }
 
 export function delete_folder(folder_path: string): void {
-  removeSync(folder_path,{});
+  removeSync(folder_path, {});
 }
 
-export function fix_path(file_path:string):string{
- return path.join(...file_path.split(/[/\\]/));
+export function fix_path(file_path: string): string {
+  return path.join(...file_path.split(/[/\\]/));
 }

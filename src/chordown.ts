@@ -16,7 +16,7 @@ import { Config } from "./chordown-config";
 import { export_onsong } from "./exporters/export-onsong";
 import { export_tex } from "./exporters/export-tex";
 import * as shell from "shelljs";
-import "path";
+import * as path from "path";
 
 export const line_blank: number = 0;
 export const line_text: number = 1;
@@ -75,11 +75,6 @@ export function parse_header(header_text: string): Header {
     let header: Header = { title: "" };
 
     header = Object.assign(header, read_yaml_smart(header_text));
-    // if ("title"! in header) {
-    //   console.warn("KEEP THIS CODE");
-    //   header["title"] = "";
-    //   return header;
-    // }
     return header;
   }
 }
@@ -110,11 +105,6 @@ export function parse_line_section(line: string): string {
     line = line.slice(0, -1).trim();
   }
   line = to_sentence_case(line);
-  // // check if final character of section is a number
-  // if (parseInt(line.slice(-1)[0]) == NaN) {
-  //   // if the final character is a number then remove it
-  //   line = line.slice(0, -2);
-  // }
   return line;
 }
 
@@ -190,7 +180,6 @@ export function parse_body(body: string): Section[] {
             );
           }
         }
-
         break;
     }
   }
@@ -208,10 +197,7 @@ export function parse_body(body: string): Section[] {
 }
 
 export function chordown(inupt_text: string): Chordown {
-  // read_file(get_filename())
-
   let { header, body } = separate_header(split_lines(inupt_text));
-
   return {
     header: parse_header(header.join("\n")),
     body: parse_body(body.join("\n"))
@@ -231,7 +217,7 @@ export interface Header {
   time?: string;
   transpose?: number | string;
   capo?: number;
-  columns?:number;
+  columns?: number;
 }
 export interface Section {
   name: string;
@@ -246,7 +232,7 @@ export interface Line {
 function config_to_file_paths(
   config: Config
 ): { input: string[]; output: object } {
-  let input_folder_path: string = path.join(config.base , config.input);
+  let input_folder_path: string = path.join(config.base, config.input);
   let input_file_paths: string[];
   try {
     input_file_paths = path_to_list_of_files(config.base + config.input);
@@ -259,7 +245,7 @@ function config_to_file_paths(
   }
 
   let file_names = input_file_paths.map(
-    path => get_file_name(path) //.replace(/-/g, " ")
+    path => get_file_name(path)
   );
 
   let output_file_paths = {};
