@@ -1,0 +1,30 @@
+{
+  "name": "chordown",
+  "version": "1.0.0",
+  "description": "markdown based chordsheets",
+  "main": "dist/chordown.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "fs-extra": "^8.0.1",
+    "js-yaml": "^3.13.1",
+    "shelljs": "^0.8.3"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.1",
+    "ts-node": "^8.2.0",
+    "typescript": "^3.4.5",
+    "@types/js-yaml": "^3.12.1",
+    "@types/node": "^12.0.2",
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.6"
+  },
+  "scripts": {
+    "test": "mocha -r ts-node/register tests/tests.ts"
+  },
+  "author": "Hannes Smit",
+  "license": "ISC"
+}
