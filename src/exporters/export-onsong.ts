@@ -1,4 +1,23 @@
-import { Chordown } from "../chordown";
+import { Chordown, Line } from "../chordown";
+
+function export_onsong_line(line: Line): string {
+  let { chords, lyrics } = line;
+  let out: string = "";
+  if (chords == null) {
+    out += lyrics.join("");
+  } else {
+    chords = chords.map(chord => "[" + chord + "]");
+    if (lyrics == null) {
+      out += chords.join(" ");
+    } else {
+      out += lyrics[0];
+      for (let i = 1; i < lyrics.length; i++) {
+        out += chords[i - 1] + lyrics[i];
+      }
+    }
+  }
+  return out;
+}
 
 export function export_onsong(chordown: Chordown): string {
   let out: string = "";
@@ -20,24 +39,16 @@ export function export_onsong(chordown: Chordown): string {
   if (chordown.header.hasOwnProperty("capo")) {
     out += "Capo: " + chordown.header.key + "\n";
   }
+  out += "\n";
 
-  //   for (let header_key of Object.keys(chordown.header)) {
-  //     out += `${to_sentence_case(header_key)}: ${
-  //       chordown.header[header_key]
-  //     }\n`;
-  //   }
-  //   // out = out + "\n";
-  
-
-  // for (let section of chordown.body) {
-  //   if (section.name != null) {
-  //     out += section.name + ":" + "\n";
-  //   }
-
-  //   for (let line of section.lines) {
-  //     out = out + export_onsong_line(line);
-  //   }
-  //   out += "\n";
-  // }
+  for (let section of chordown.body) {
+    if (section.name != null) {
+      out += section.name + ":" + "\n";
+    }
+    for (let line of section.lines) {
+      out += export_onsong_line(line);
+    }
+    out += "\n";
+  }
   return out;
 }
