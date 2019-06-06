@@ -41,10 +41,10 @@ dist
 todo
 
 # Bash scripts
-.sh
+*.sh
 
 # VSCode
 TempDir/*
 
-# Types
+# Typescript files
 types
