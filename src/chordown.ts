@@ -5,9 +5,9 @@ import {
   get_file_name
 } from "./string-functions";
 import {
-  read_commandline_args,
   Config,
-  args_to_config
+  get_commandline_arg,
+  read_config_file
 } from "./chordown-config";
 import { export_plaintext } from "./exporters/export-plaintext";
 import {
@@ -20,14 +20,7 @@ import { export_onsong } from "./exporters/export-onsong";
 import { export_tex } from "./exporters/export-tex";
 import * as shell from "shelljs";
 import * as path from "path";
-
-export function chordown(inupt_text: string): Chordown {
-  let { header, body } = separate_header(split_lines(inupt_text));
-  return {
-    header: parse_header(header.join("\n")),
-    body: parse_body(body.join("\n"))
-  };
-}
+import { separate_header, parse_header, parse_body } from "./chordown-parse";
 
 export interface Chordown {
   header: Header;
@@ -55,6 +48,14 @@ export interface Section {
 export interface Line {
   chords: string[];
   lyrics: string[];
+}
+
+export function chordown(inupt_text: string): Chordown {
+  let { header, body } = separate_header(split_lines(inupt_text));
+  return {
+    header: parse_header(header.join("\n")),
+    body: parse_body(body.join("\n"))
+  };
 }
 
 function config_to_file_paths(
