@@ -1,4 +1,4 @@
-import { read_yaml_smart, read_file_smart } from "./file-io";
+import { read_yaml_smart, read_file_smart, fix_path } from "./file-io";
 
 export function get_commandline_arg(): string {
   return process.argv[0];
@@ -24,5 +24,14 @@ export function read_config_file(config_path: string): Config {
     chordown_config,
     read_yaml_smart(config_string)
   );
+  
+  // fix paths
+  chordown_config.base = fix_path(chordown_config.base);
+  chordown_config.input = fix_path(chordown_config.input);
+  for (let output_format of Object.keys(chordown_config.output)) {
+    chordown_config.output[output_format].path = fix_path(
+      chordown_config.output[output_format].path
+    );
+  }
   return chordown_config;
 }
