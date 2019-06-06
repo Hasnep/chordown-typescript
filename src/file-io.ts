@@ -59,5 +59,5 @@ export function delete_folder(folder_path: string): void {
 }
 
 export function fix_path(file_path: string): string {
-  return path.join(...file_path.split(/[/\\]/));
+  return path.join(...file_path.split(/\/|\\/));
 }
