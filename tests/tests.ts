@@ -1,19 +1,20 @@
 import {
-  is_line_blank,
-  is_line_chord,
-  is_line_section,
-  get_linetype,
-  line_blank,
-  line_text,
-  line_chord,
-  line_section,
+  parse_line_chord,
+  parse_body,
   separate_header
-} from "../src/chordown";
-import {
-  to_sentence_case,
-  first_character
-} from "../src/string-functions";
+} from "../src/chordown-parse";
+import { to_sentence_case, first_character } from "../src/string-functions";
 import { read_config_file } from "../src/chordown-config";
+import {
+  get_linetype,
+  line_text,
+  line_section,
+  line_chord,
+  line_blank,
+  is_line_section,
+  is_line_blank,
+  is_line_chord
+} from "../src/line-types";
 import "mocha";
 import { assert } from "chai";
 
