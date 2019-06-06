@@ -15,6 +15,7 @@ import {
   is_line_blank,
   is_line_chord
 } from "../src/line-types";
+import { fix_path } from "../src/file-io";
 import "mocha";
 import { assert } from "chai";
 
@@ -188,4 +189,19 @@ describe("parse_body", function() {
     ];
     assert.deepEqual(parse_body(example_body), expected_body);
   });
+});
+
+describe("fix_path", function() {
+  let fixed_path = "aaa/bbb/ccc.d"
+  it("keeps UNIX path the same", function() {
+    assert.equal(fix_path("aaa/bbb/ccc.d"), fixed_path);
+  });
+
+   it("Fixes Windows path", function() {
+     assert.equal(fix_path("aaa\\bbb\\ccc.d"), fixed_path);
+   });
+
+    it("Fixes mixed path", function() {
+      assert.equal(fix_path("aaa\\bbb/ccc.d"), fixed_path);
+    });
 });
