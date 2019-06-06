@@ -1,0 +1,5 @@
+base: blah
+input: poo
+output:
+  tex: 
+    path: output
