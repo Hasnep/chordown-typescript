@@ -1,5 +1,7 @@
 # Chordown
 
+Markdown based chordsheets. Written in Typescript and based on [Markato](https://markato.studio/).
+
 ## Commands
 
 * Compile: `tsc -p tsconfig.json --watch`
