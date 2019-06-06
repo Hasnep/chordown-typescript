@@ -13,6 +13,7 @@ import {
   to_sentence_case,
   first_character
 } from "../src/string-functions";
+import { read_config_file } from "../src/chordown-config";
 import "mocha";
 import { assert } from "chai";
 
@@ -173,4 +174,16 @@ describe("get_linetype", function() {
 // });
 
 
-// let example_chordown = chordown(example_input_text);
+// let example_chordown = chordown(example_input_text);describe("read_config_file", function() {
+  it("reads a config file", function() {
+    let expected_config = {
+      base: "blah",
+      input: "poo",
+      output: { tex: { path: "output" } }
+    };
+    assert.deepEqual(
+      read_config_file("tests/test-config.yaml"),
+      expected_config
+    );
+  });
+});
