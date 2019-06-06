@@ -8,6 +8,7 @@ interface Args {
   input?: string;
   output?: string;
 }
+
 export function read_commandline_args(): Args {
   // wrapper for yargs to get arguments passed through the command line
   return yargs
@@ -38,12 +39,14 @@ export interface Config {
   input: string;
   output: output_paths;
 }
+
 interface output_paths {
   json?: object;
   txt?: object;
   tex?: object;
   onsong?: object;
 }
+
 export function args_to_config(args: Args): Config {
   // input an object of command line arguments and get a config object
   let chordown_config: Config = { base: "", input: null, output: null };
