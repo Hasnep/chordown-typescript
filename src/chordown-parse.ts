@@ -1,7 +1,13 @@
-import {Header, Section, Line} from "./chordown"
+import { Header, Section, Line } from "./chordown";
 import { read_yaml_smart } from "./file-io";
 import { to_sentence_case, split_lines } from "./string-functions";
-import { get_linetype, line_blank, line_section, line_chord, line_text } from "./line-types";
+import {
+  get_linetype,
+  line_blank,
+  line_section,
+  line_chord,
+  line_text
+} from "./line-types";
 
 export function separate_header(
   lines: string[]
