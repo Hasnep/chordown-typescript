@@ -1,4 +1,3 @@
-import { separate_header, parse_line_chord, parse_body } from "../src/chordown";
 import {
   is_line_blank,
   is_line_chord,
@@ -7,9 +6,13 @@ import {
   line_blank,
   line_text,
   line_chord,
-  line_section
-} from "../src/line-types";
-import { to_sentence_case, first_character } from "../src/string-functions";
+  line_section,
+  separate_header
+} from "../src/chordown";
+import {
+  to_sentence_case,
+  first_character
+} from "../src/string-functions";
 import { read_config_file } from "../src/chordown-config";
 import "mocha";
 import { assert } from "chai";
