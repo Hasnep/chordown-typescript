@@ -1,4 +1,4 @@
-import { first_character } from "../src/string-functions";
+import { first_character } from "./string-functions";
 
 // line types
 export const line_blank: number = 0;
