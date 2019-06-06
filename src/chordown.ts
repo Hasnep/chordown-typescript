@@ -4,7 +4,11 @@ import {
   split_lines,
   get_file_name
 } from "./string-functions";
-import { read_commandline_args, args_to_config } from "./chordown-config";
+import {
+  read_commandline_args,
+  Config,
+  args_to_config
+} from "./chordown-config";
 import { export_plaintext } from "./exporters/export-plaintext";
 import {
   write_file_smart,
@@ -12,7 +16,6 @@ import {
   read_file_smart,
   read_yaml_smart
 } from "./file-io";
-import { Config } from "./chordown-config";
 import { export_onsong } from "./exporters/export-onsong";
 import { export_tex } from "./exporters/export-tex";
 import * as shell from "shelljs";
@@ -30,6 +33,7 @@ export interface Chordown {
   header: Header;
   body: Section[];
 }
+
 export interface Header {
   title: string;
   subtitle?: string;
@@ -41,11 +45,13 @@ export interface Header {
   capo?: number;
   columns?: number;
 }
+
 export interface Section {
   name: string;
   repeats: number;
   lines: Line[];
 }
+
 export interface Line {
   chords: string[];
   lyrics: string[];
@@ -66,9 +72,7 @@ function config_to_file_paths(
     input_file_paths = input_file_paths.map(path => input_folder_path + path);
   }
 
-  let file_names = input_file_paths.map(
-    path => get_file_name(path)
-  );
+  let file_names = input_file_paths.map(path => get_file_name(path));
 
   let output_file_paths = {};
   for (let output_format of Object.keys(config.output)) {
