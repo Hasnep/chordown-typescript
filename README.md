@@ -1,4 +1,4 @@
-# 🎸 Chordown
+# Chordown
 
 ## Commands
 
