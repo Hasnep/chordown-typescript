@@ -74,7 +74,7 @@ function config_to_file_paths(
 
   let output_file_paths = {};
   for (let output_format of Object.keys(config.output)) {
-    output_file_paths[output_format] = file_names.map(
+    output_file_paths[output_format].path = file_names.map(
       file_name =>
         config.base +
         config.output[output_format] +
@@ -85,8 +85,9 @@ function config_to_file_paths(
   }
   return { input: input_file_paths, output: output_file_paths };
 }
-let commandline_args = read_commandline_args();
-let chordown_config = args_to_config(commandline_args);
+
+let config_path = get_commandline_arg();
+let chordown_config = read_config_file(config_path);
 let {
   input: input_file_paths,
   output: output_file_paths
