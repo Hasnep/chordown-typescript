@@ -1,8 +1,9 @@
 import * as path from "path";
 import { read_yaml_smart, read_file_smart } from "./file-io";
+import * as yargs from "yargs";
 
 export function get_commandline_arg(): string {
-  return process.argv[0];
+  return yargs.argv._[0];
 }
 
 export interface Config {
