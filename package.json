@@ -23,7 +23,7 @@
     "@types/mocha": "^5.2.6"
   },
   "scripts": {
-    "test": "mocha -r ts-node/register tests/tests.ts"
+    "test": "mocha -r ts-node/register tests/**/*.ts"
   },
   "author": "Hannes Smit",
   "license": "ISC"
