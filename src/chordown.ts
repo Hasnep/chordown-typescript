@@ -62,7 +62,7 @@ function config_to_file_paths(
   let input_file_paths: string[];
   try {
     input_file_paths = path_to_list_of_files(config.base + config.input);
-  } catch (err) {
+  } catch {
     console.error(`Cannot read folder '${input_folder_path}'.`);
     process.exit();
   } finally {

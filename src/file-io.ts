@@ -25,7 +25,7 @@ export function read_file_smart(filepath: string): string {
   let str: string;
   try {
     str = readFileSync(filepath, "utf8");
-  } catch (err) {
+  } catch {
     console.error(`Cannot read file '${filepath}'.`);
     process.exit();
   }
@@ -36,7 +36,7 @@ export function write_file_smart(text: string, filename: string): void {
   make_sure_folder(get_file_path(filename));
   try {
     writeFileSync(filename, text, {});
-  } catch (err) {
+  } catch {
     console.error(`Could not write to '${filename}'.`);
     process.exit();
   }
