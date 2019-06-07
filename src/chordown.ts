@@ -1,6 +1,4 @@
 import {
-  to_sentence_case,
-  first_character,
   split_lines,
   get_file_name
 } from "./string-functions";
@@ -13,8 +11,7 @@ import { export_plaintext } from "./exporters/plaintext";
 import {
   write_file_smart,
   path_to_list_of_files,
-  read_file_smart,
-  read_yaml_smart
+  read_file_smart
 } from "./file-io";
 import { export_onsong } from "./exporters/onsong";
 import { export_tex } from "./exporters/tex";
