@@ -1,4 +1,6 @@
-# 🎸 Chordown
+# Chordown
+
+Markdown based chordsheets. Written in Typescript and based on [Markato](https://markato.studio/).
 
 ## Commands
 
