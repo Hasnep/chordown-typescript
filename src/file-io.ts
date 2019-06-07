@@ -3,7 +3,8 @@ import {
   writeFileSync,
   readdirSync,
   mkdirSync,
-  removeSync
+  removeSync,
+  statSync
 } from "fs-extra";
 import * as yaml from "js-yaml";
 import { get_file_path } from "./string-functions";
@@ -46,7 +47,15 @@ export function read_yaml_smart(str: string): object {
 }
 
 export function path_to_list_of_files(folder_path: string): string[] {
-  return readdirSync(folder_path);
+  let list_of_paths: string[] = readdirSync(folder_path);
+  // select only the files (not directories)
+  let list_of_files: string[] = [];
+  for (let path of list_of_paths) {
+    if (statSync(folder_path + path).isFile()) {
+      list_of_files.push(path);
+    }
+  }
+  return list_of_files;
 }
 
 function make_sure_folder(folder_path: string): void {
