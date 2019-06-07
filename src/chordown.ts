@@ -1,12 +1,5 @@
-import {
-  split_lines,
-  get_file_name
-} from "./string-functions";
-import {
-  Config,
-  get_commandline_arg,
-  read_config_file
-} from "./config";
+import { split_lines, get_file_name } from "./string-functions";
+import { Config, get_commandline_arg, read_config_file } from "./config";
 import { export_plaintext } from "./exporters/plaintext";
 import {
   write_file_smart,
@@ -49,6 +42,9 @@ export interface Line {
 
 export function chordown(inupt_text: string): Chordown {
   let { header, body } = separate_header(split_lines(inupt_text));
+  if (header == null) {
+    header = [""];
+  }
   return {
     header: parse_header(header.join("\n")),
     body: parse_body(body.join("\n"))
@@ -65,22 +61,22 @@ function config_to_file_paths(
   } catch {
     console.error(`Cannot read folder '${input_folder_path}'.`);
     process.exit();
-  } finally {
-    // convert relative path to absolute path
-    input_file_paths = input_file_paths.map(path => input_folder_path + path);
   }
 
-  let file_names = input_file_paths.map(path => get_file_name(path));
+  // convert relative path to absolute path
+  input_file_paths = input_file_paths.map(file_path =>
+    path.join(input_folder_path, file_path)
+  );
 
+  let file_names = input_file_paths.map(path => get_file_name(path));
   let output_file_paths = {};
   for (let output_format of Object.keys(config.output)) {
-    output_file_paths[output_format].path = file_names.map(
-      file_name =>
-        config.base +
-        config.output[output_format] +
-        file_name +
-        "." +
-        output_format
+    output_file_paths[output_format] = file_names.map(file_name =>
+      path.join(
+        config.base,
+        config.output[output_format].path,
+        file_name + "." + output_format
+      )
     );
   }
   return { input: input_file_paths, output: output_file_paths };
