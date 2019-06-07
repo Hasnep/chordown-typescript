@@ -2,9 +2,9 @@ import {
   parse_line_chord,
   parse_body,
   separate_header
-} from "../src/chordown-parse";
+} from "../src/parser";
 import { to_sentence_case, first_character } from "../src/string-functions";
-import { read_config_file } from "../src/chordown-config";
+import { read_config_file } from "../src/config";
 import {
   get_linetype,
   line_text,

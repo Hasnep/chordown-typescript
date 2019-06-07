@@ -25,7 +25,7 @@ export function read_config_file(config_path: string): Config {
     chordown_config,
     read_yaml_smart(config_string)
   );
-  
+
   // fix paths
   chordown_config.base = path.normalize(chordown_config.base);
   chordown_config.input = path.normalize(chordown_config.input);

@@ -8,19 +8,19 @@ import {
   Config,
   get_commandline_arg,
   read_config_file
-} from "./chordown-config";
-import { export_plaintext } from "./exporters/export-plaintext";
+} from "./config";
+import { export_plaintext } from "./exporters/plaintext";
 import {
   write_file_smart,
   path_to_list_of_files,
   read_file_smart,
   read_yaml_smart
 } from "./file-io";
-import { export_onsong } from "./exporters/export-onsong";
-import { export_tex } from "./exporters/export-tex";
+import { export_onsong } from "./exporters/onsong";
+import { export_tex } from "./exporters/tex";
 import * as shell from "shelljs";
 import * as path from "path";
-import { separate_header, parse_header, parse_body } from "./chordown-parse";
+import { separate_header, parse_header, parse_body } from "./parser";
 
 export interface Chordown {
   header: Header;
