@@ -6,7 +6,6 @@ import {
   removeSync
 } from "fs-extra";
 import * as yaml from "js-yaml";
-import * as path from "path";
 import { get_file_path } from "./string-functions";
 
 export function get_filename(): string {
@@ -56,8 +55,4 @@ function make_sure_folder(folder_path: string): void {
 
 export function delete_folder(folder_path: string): void {
   removeSync(folder_path, {});
-}
-
-export function fix_path(file_path: string): string {
-  return path.join(...file_path.split(/\/|\\/));
 }
