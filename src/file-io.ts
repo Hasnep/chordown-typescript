@@ -9,17 +9,6 @@ import {
 import * as yaml from "js-yaml";
 import { get_file_path } from "./string-functions";
 
-export function get_filename(): string {
-  // gets the name of the file passed as a commandline argument
-  let n_args = process.argv.length;
-  if (n_args > 2) {
-    let filename = process.argv[n_args - 1];
-    return filename;
-  } else {
-    return "";
-  }
-}
-
 export function read_file_smart(filepath: string): string {
   // reads the file in the location specified in the input and errors if the file cannot be read
   let str: string;
