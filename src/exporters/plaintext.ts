@@ -6,9 +6,9 @@ function export_plaintext_line(line: Line): string {
   let { chords, lyrics } = line;
   let out: string = "";
   if (chords == null) {
-    out = out + lyrics.join("") + "\n";
+    out += lyrics.join("") + "\n";
   } else if (lyrics == null) {
-    out = out + chords.join(" ") + "\n";
+    out += chords.join(" ") + "\n";
   } else {
     let lyrics_out: string = lyrics[0];
     let chords_out: string = " ".repeat(lyrics[0].length);
@@ -20,7 +20,7 @@ function export_plaintext_line(line: Line): string {
       lyrics_out = lyrics_out + lyrics[i].padEnd(n_spaces);
       chords_out = chords_out + chords[i - 1].padEnd(n_spaces);
     }
-    out = out + chords_out + "\n" + lyrics_out + "\n";
+    out += chords_out + "\n" + lyrics_out + "\n";
   }
   return out;
 }
@@ -48,7 +48,7 @@ export function export_plaintext(chordown: Chordown): string {
     }
 
     for (let line of section.lines) {
-      out = out + export_plaintext_line(line);
+      out += export_plaintext_line(line);
     }
     out += "\n";
   }

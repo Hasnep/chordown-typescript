@@ -26,7 +26,7 @@ function export_tex_line(line: Line): string {
 
 export function export_tex(chordown: Chordown): string {
   let out: string = preamble;
-out+="\\begin{document}\n";
+  out += "\\begin{document}\n";
   let title: string = chordown.header.title;
   let subtitle: string = "";
   if (chordown.header.hasOwnProperty("subtitle")) {
@@ -60,7 +60,7 @@ out+="\\begin{document}\n";
   for (let section of chordown.body) {
     out += "\\myverse{" + section.name + "}\n\\beginverse\n";
     for (let line of section.lines) {
-      out = out + export_tex_line(line) + "\n";
+      out += export_tex_line(line) + "\n";
     }
     out += "\\endverse\n";
   }
