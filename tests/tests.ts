@@ -113,9 +113,12 @@ describe("get_linetype", function() {
 describe("read_config_file", function() {
   it("reads a config file", function() {
     let expected_config = {
-      base: "blah",
-      input: "poo",
-      output: { tex: { path: "output" } }
+      base: "~/aaa/bbb/",
+      input: "ccc/",
+      output: {
+        json: { path: "ddd/" },
+        tex: { path: "eee/", compile: "xelatex" }
+      }
     };
     assert.deepEqual(
       read_config_file("tests/test-config.yaml"),

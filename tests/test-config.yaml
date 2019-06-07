@@ -1,5 +1,8 @@
-base: blah
-input: poo
+base: ~/aaa/bbb/
+input: ccc/
 output:
+  json:
+    path: ddd/
   tex: 
-    path: output
+    path: eee/
+    compile: "xelatex"
