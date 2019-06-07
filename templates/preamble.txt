@@ -45,4 +45,3 @@
 % \renewcommand\chorusfont{}
 % \renewcommand\theversenum{\versenumstyle{versenum}}
 % \renewcommand\versejustify{\justifyright}
-\begin{document}

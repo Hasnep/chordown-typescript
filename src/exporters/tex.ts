@@ -26,7 +26,7 @@ function export_tex_line(line: Line): string {
 
 export function export_tex(chordown: Chordown): string {
   let out: string = preamble;
-
+out+="\\begin{document}\n";
   let title: string = chordown.header.title;
   let subtitle: string = "";
   if (chordown.header.hasOwnProperty("subtitle")) {
