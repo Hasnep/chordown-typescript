@@ -27,6 +27,7 @@ export function read_file_smart(filepath: string): string {
     str = readFileSync(filepath, "utf8");
   } catch (err) {
     console.error(`Cannot read file '${filepath}'.`);
+    process.exit();
   }
   return str;
 }
@@ -37,6 +38,7 @@ export function write_file_smart(text: string, filename: string): void {
     writeFileSync(filename, text, {});
   } catch (err) {
     console.error(`Could not write to '${filename}'.`);
+    process.exit();
   }
 }
 
