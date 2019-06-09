@@ -2,7 +2,7 @@ import { Chordown, Line } from "../chordown";
 import { read_file_smart } from "../file-io";
 import { Config } from "../config";
 
-let preamble: string = read_file_smart("templates/preamble.txt");
+const preamble: string = read_file_smart("templates/preamble.txt");
 
 // chordown as plaintext
 function export_tex_line(line: Line): string {
