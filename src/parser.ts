@@ -22,14 +22,15 @@ export function separate_header(
         };
       }
     }
-  }
+  }else{
   console.warn("Did not contain a header.");
-  return { header: [], body: lines };
+  return { header: null, body: lines };
+  }
 }
 
 // parsing lines
 export function parse_header(header_text: string): Header {
-  if (header_text == "") {
+  if (header_text==null||header_text == "") {
     return { title: "" };
   } else {
     header_text = header_text.replace(/(^.*?):(?=\S)/gm, "$1: "); // fix bad yaml
