@@ -1,5 +1,6 @@
 import { Chordown, Line } from "../chordown";
 import { read_file_smart } from "../file-io";
+import { Config } from "../config";
 
 let preamble: string = read_file_smart("templates/preamble.txt");
 
@@ -24,7 +25,7 @@ function export_tex_line(line: Line): string {
   return out;
 }
 
-export function export_tex(chordown: Chordown): string {
+export function export_tex(chordown: Chordown, config: Config): string {
   let out: string = preamble;
   out += "\\begin{document}\n";
   let title: string = chordown.header.title;
