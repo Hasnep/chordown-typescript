@@ -1,16 +1,16 @@
-import { split_lines, get_file_name } from "./string-functions";
-import { Config, get_commandline_arg, read_config_file } from "./config";
-import { export_plaintext } from "./exporters/plaintext";
-import {
-  write_file_smart,
-  path_to_list_of_files,
-  read_file_smart
-} from "./file-io";
-import { export_onsong } from "./exporters/onsong";
-import { export_tex } from "./exporters/tex";
-import * as shell from "shelljs";
 import * as path from "path";
-import { separate_header, parse_header, parse_body } from "./parser";
+import * as shell from "shelljs";
+import { Config, get_commandline_arg, read_config_file } from "./config";
+import { export_onsong } from "./exporters/onsong";
+import { export_plaintext } from "./exporters/plaintext";
+import { export_tex } from "./exporters/tex";
+import {
+  path_to_list_of_files,
+  read_file_smart,
+  write_file_smart,
+} from "./file-io";
+import { parse_body, parse_header, separate_header } from "./parser";
+import { get_file_name, split_lines } from "./string-functions";
 
 export interface Chordown {
   header: Header;
@@ -47,14 +47,14 @@ export function chordown(inupt_text: string): Chordown {
   }
   return {
     header: parse_header(header.join("\n")),
-    body: parse_body(body.join("\n"))
+    body: parse_body(body.join("\n")),
   };
 }
 
 function config_to_file_paths(
-  config: Config
+  config: Config,
 ): { input: string[]; output: object } {
-  let input_folder_path: string = path.join(config.base, config.input);
+  const input_folder_path: string = path.join(config.base, config.input);
   let input_file_paths: string[];
   try {
     input_file_paths = path_to_list_of_files(config.base + config.input);
@@ -64,69 +64,69 @@ function config_to_file_paths(
   }
 
   // convert relative path to absolute path
-  input_file_paths = input_file_paths.map(file_path =>
-    path.join(input_folder_path, file_path)
+  input_file_paths = input_file_paths.map((file_path) =>
+    path.join(input_folder_path, file_path),
   );
 
-  let file_names = input_file_paths.map(path => get_file_name(path));
-  let output_file_paths = {};
-  for (let output_format of Object.keys(config.output)) {
-    output_file_paths[output_format] = file_names.map(file_name =>
+  const file_names = input_file_paths.map((path) => get_file_name(path));
+  const output_file_paths = {};
+  for (const output_format of Object.keys(config.output)) {
+    output_file_paths[output_format] = file_names.map((file_name) =>
       path.join(
         config.base,
         config.output[output_format].path,
-        file_name + "." + output_format
-      )
+        file_name + "." + output_format,
+      ),
     );
   }
   return { input: input_file_paths, output: output_file_paths };
 }
 
-let config_path = get_commandline_arg();
-let chordown_config = read_config_file(config_path);
-let {
+const config_path = get_commandline_arg();
+const chordown_config = read_config_file(config_path);
+const {
   input: input_file_paths,
-  output: output_file_paths
+  output: output_file_paths,
 } = config_to_file_paths(chordown_config);
 
 for (let i = 0; i < input_file_paths.length; i++) {
-  let input_file_path: string = input_file_paths[i];
-  let input_text: string = read_file_smart(input_file_path);
-  let chordown_object: Chordown = chordown(input_text);
+  const input_file_path: string = input_file_paths[i];
+  const input_text: string = read_file_smart(input_file_path);
+  const chordown_object: Chordown = chordown(input_text);
 
   // export
-  let output_formats: string[] = Object.keys(chordown_config.output);
+  const output_formats: string[] = Object.keys(chordown_config.output);
   // plaintext export
   if (output_formats.includes("txt")) {
-    let output_file_path: string = output_file_paths["txt"][i];
+    const output_file_path: string = output_file_paths.txt[i];
     write_file_smart(export_plaintext(chordown_object), output_file_path);
   }
   // json export
   if (output_formats.includes("json")) {
-    let output_file_path: string = output_file_paths["json"][i];
+    const output_file_path: string = output_file_paths.json[i];
     write_file_smart(JSON.stringify(chordown_object), output_file_path);
   }
   // onsong export
   if (output_formats.includes("onsong")) {
-    let output_file_path: string = output_file_paths["onsong"][i];
+    const output_file_path: string = output_file_paths.onsong[i];
     write_file_smart(export_onsong(chordown_object), output_file_path);
   }
   // tex export
   if (output_formats.includes("tex")) {
-    let output_file_path: string = output_file_paths["tex"][i];
+    const output_file_path: string = output_file_paths.tex[i];
     write_file_smart(
       export_tex(chordown_object, chordown_config),
-      output_file_path
+      output_file_path,
     );
     if (
       Object.keys(chordown_config.output.tex).includes("compile") &&
-      chordown_config.output.tex["compile"] != false
+      chordown_config.output.tex.compile != false
     ) {
-      let latex_compiler = chordown_config.output.tex["compile"];
-      let latex_compile_command: string =
+      const latex_compiler = chordown_config.output.tex.compile;
+      const latex_compile_command: string =
         "cd " +
         chordown_config.base +
-        chordown_config.output["tex"]["path"] +
+        chordown_config.output.tex.path +
         " && " +
         latex_compiler +
         " " +

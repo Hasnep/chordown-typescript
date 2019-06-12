@@ -1,16 +1,16 @@
-import { Header, Section, Line } from "./chordown";
+import { Header, Line, Section } from "./chordown";
 import { read_yaml_smart } from "./file-io";
-import { to_sentence_case, split_lines } from "./string-functions";
 import {
   get_linetype,
   line_blank,
-  line_section,
   line_chord,
-  line_text
+  line_section,
+  line_text,
 } from "./line-types";
+import { split_lines, to_sentence_case } from "./string-functions";
 
 export function separate_header(
-  lines: string[]
+  lines: string[],
 ): { header: string[]; body: string[] } {
   // given a list of lines, finds the header and splits into header and body
   if (lines[0] == "---") {
@@ -18,11 +18,11 @@ export function separate_header(
       if (lines[i] == "---") {
         return {
           header: lines.slice(1, i),
-          body: lines.slice(i + 1)
+          body: lines.slice(i + 1),
         };
       }
     }
-  }else{
+  } else {
   console.warn("Did not contain a header.");
   return { header: null, body: lines };
   }
@@ -30,7 +30,7 @@ export function separate_header(
 
 // parsing lines
 export function parse_header(header_text: string): Header {
-  if (header_text==null||header_text == "") {
+  if (header_text == null || header_text == "") {
     return { title: "" };
   } else {
     header_text = header_text.replace(/(^.*?):(?=\S)/gm, "$1: "); // fix bad yaml
@@ -42,7 +42,7 @@ export function parse_header(header_text: string): Header {
 }
 
 export function parse_line_chord(line: string): string[] {
-  let line_splitted: string[] = line
+  const line_splitted: string[] = line
     .trim()
     .slice(1)
     // .trim()
@@ -71,21 +71,21 @@ export function parse_line_section(line: string): string {
 }
 
 export function parse_body(body: string): Section[] {
-  let body_parsed: Section[] = []; // initialise output object
+  const body_parsed: Section[] = []; // initialise output object
 
   // initialise variables
   let current_section: Section = {
     name: null,
     repeats: null,
-    lines: []
+    lines: [],
   };
   let current_line: Line = {
     chords: null,
-    lyrics: null
+    lyrics: null,
   };
 
   // loop over each line
-  for (let line of split_lines(body)) {
+  for (const line of split_lines(body)) {
     switch (get_linetype(line)) {
       case line_blank:
         break;
@@ -95,7 +95,7 @@ export function parse_body(body: string): Section[] {
           current_section.lines.push(current_line);
           current_line = {
             chords: null,
-            lyrics: null
+            lyrics: null,
           }; // reset the curent line
         }
         // push the current section if it's not the default undefined section
@@ -106,7 +106,7 @@ export function parse_body(body: string): Section[] {
         current_section = {
           name: parse_line_section(line),
           repeats: null,
-          lines: []
+          lines: [],
         };
         break;
       case line_chord:
@@ -115,7 +115,7 @@ export function parse_body(body: string): Section[] {
           current_section.lines.push(current_line);
           current_line = {
             chords: null,
-            lyrics: null
+            lyrics: null,
           };
         }
         // replace the current line's chords
@@ -127,7 +127,7 @@ export function parse_body(body: string): Section[] {
           current_section.lines.push(current_line);
           current_line = {
             chords: null,
-            lyrics: null
+            lyrics: null,
           };
         }
         // replace the current line's lyrics
@@ -138,7 +138,7 @@ export function parse_body(body: string): Section[] {
           if (current_line.chords.length + 1 != current_line.lyrics.length) {
             console.error(
               "something bad happened on this line: " +
-                current_line.lyrics.join("")
+                current_line.lyrics.join(""),
             );
           }
         }
@@ -150,7 +150,7 @@ export function parse_body(body: string): Section[] {
     current_section.lines.push(current_line);
     current_line = {
       chords: null,
-      lyrics: null
+      lyrics: null,
     };
   }
   // push the final section

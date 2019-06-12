@@ -1,6 +1,6 @@
 import { Chordown, Line } from "../chordown";
-import { read_file_smart } from "../file-io";
 import { Config } from "../config";
+import { read_file_smart } from "../file-io";
 
 const preamble: string = read_file_smart("templates/preamble.txt");
 
@@ -11,7 +11,7 @@ function export_tex_line(line: Line): string {
   if (chords == null) {
     out += lyrics.join("");
   } else {
-    chords = chords.map(chord => "\\[" + chord + "]");
+    chords = chords.map((chord) => "\\[" + chord + "]");
     if (lyrics == null) {
       out += "{\\nolyrics " + chords.join(" ") + "}";
     } else {
@@ -36,7 +36,7 @@ export function export_tex(chordown: Chordown, config: Config): string {
   //     "\\songcolumns{0} % set the number of columns to 0 to return to default page layout\n";
   // }
   out += "\\begin{document}\n";
-  let title: string = chordown.header.title;
+  const title: string = chordown.header.title;
   let subtitle: string = "";
   if (chordown.header.hasOwnProperty("subtitle")) {
     subtitle = "\\\\" + chordown.header.subtitle;
@@ -66,9 +66,9 @@ export function export_tex(chordown: Chordown, config: Config): string {
     key +
     "]\n";
 
-  for (let section of chordown.body) {
+  for (const section of chordown.body) {
     out += "\\myverse{" + section.name + "}\n\\beginverse\n";
-    for (let line of section.lines) {
+    for (const line of section.lines) {
       out += export_tex_line(line) + "\n";
     }
     out += "\\endverse\n";
