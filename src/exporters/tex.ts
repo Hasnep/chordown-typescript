@@ -4,7 +4,6 @@ import { Config } from "../config";
 
 const preamble: string = read_file_smart("templates/preamble.txt");
 
-// chordown as plaintext
 function export_tex_line(line: Line): string {
   let { chords, lyrics } = line;
 
@@ -27,6 +26,15 @@ function export_tex_line(line: Line): string {
 
 export function export_tex(chordown: Chordown, config: Config): string {
   let out: string = preamble;
+  // if (Object.keys(config.output.tex).includes("columns")) {
+  //   out +=
+  //     "\\songcolumns{" +
+  //     config.output["tex"]["columns"] +
+  //     "} % set the number of columns\n";
+  // } else {
+  //   out +=
+  //     "\\songcolumns{0} % set the number of columns to 0 to return to default page layout\n";
+  // }
   out += "\\begin{document}\n";
   let title: string = chordown.header.title;
   let subtitle: string = "";

@@ -38,6 +38,8 @@ export function read_yaml_smart(str: string): object {
 }
 
 export function path_to_list_of_files(folder_path: string): string[] {
+  // lists all the files in a directory
+  
   let list_of_paths: string[] = readdirSync(folder_path);
   // select only the files (not directories)
   let list_of_files: string[] = [];

@@ -1,7 +1,6 @@
 import { to_sentence_case } from "../string-functions";
 import { Chordown, Line } from "../chordown";
 
-// chordown as plaintext
 function export_plaintext_line(line: Line): string {
   let { chords, lyrics } = line;
   let out: string = "";

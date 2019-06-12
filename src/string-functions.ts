@@ -5,6 +5,12 @@ export function to_sentence_case(s: string) {
 
 export function first_character(line: string): string {
   // returns the first non-whitespace character in a line
+  // let character = line.trim().match(/^[^A-Za-z]*?([A-Za-z])/);
+  // if (character == null) {
+  //   return "";
+  // } else {
+  //   return character[1];
+  // }
   return line.trim().charAt(0);
 }
 
