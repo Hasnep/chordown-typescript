@@ -6,7 +6,7 @@ function export_onsong_line(line: Line): string {
   if (chords == null) {
     out += lyrics.join("");
   } else {
-    chords = chords.map(chord => "[" + chord + "]");
+    chords = chords.map((chord) => "[" + chord + "]");
     if (lyrics == null) {
       out += chords.join(" ");
     } else {
@@ -41,11 +41,11 @@ export function export_onsong(chordown: Chordown): string {
   }
   out += "\n";
 
-  for (let section of chordown.body) {
+  for (const section of chordown.body) {
     if (section.name != null) {
       out += section.name + ":" + "\n";
     }
-    for (let line of section.lines) {
+    for (const line of section.lines) {
       out += export_onsong_line(line);
     }
     out += "\n";

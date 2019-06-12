@@ -1,8 +1,8 @@
-import { to_sentence_case } from "../string-functions";
 import { Chordown, Line } from "../chordown";
+import { to_sentence_case } from "../string-functions";
 
 function export_plaintext_line(line: Line): string {
-  let { chords, lyrics } = line;
+  const { chords, lyrics } = line;
   let out: string = "";
   if (chords == null) {
     out += lyrics.join("") + "\n";
@@ -12,9 +12,9 @@ function export_plaintext_line(line: Line): string {
     let lyrics_out: string = lyrics[0];
     let chords_out: string = " ".repeat(lyrics[0].length);
     for (let i = 1; i < lyrics.length; i++) {
-      let n_spaces: number = Math.max(
+      const n_spaces: number = Math.max(
         lyrics[i].length,
-        chords[i - 1].length + 1
+        chords[i - 1].length + 1,
       );
       lyrics_out = lyrics_out + lyrics[i].padEnd(n_spaces);
       chords_out = chords_out + chords[i - 1].padEnd(n_spaces);
@@ -32,7 +32,7 @@ export function export_plaintext(chordown: Chordown): string {
       Object.keys(chordown.header)[0] == ""
     )
   ) {
-    for (let header_key of Object.keys(chordown.header)) {
+    for (const header_key of Object.keys(chordown.header)) {
       out +=
         to_sentence_case(header_key) +
         ": " +
@@ -41,12 +41,12 @@ export function export_plaintext(chordown: Chordown): string {
     }
   }
 
-  for (let section of chordown.body) {
+  for (const section of chordown.body) {
     if (section.name != null) {
       out += section.name + ":" + "\n";
     }
 
-    for (let line of section.lines) {
+    for (const line of section.lines) {
       out += export_plaintext_line(line);
     }
     out += "\n";

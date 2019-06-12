@@ -19,7 +19,7 @@ export function split_lines(str: string): string[] {
   if (str == undefined) {
     return null;
   }
-  return str.split(/\r\n|\r|\n/).map(line => line.trim());
+  return str.split(/\r\n|\r|\n/).map((line) => line.trim());
 }
 
 export function get_file_name(file_path: string): string {
