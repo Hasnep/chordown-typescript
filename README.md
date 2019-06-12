@@ -4,6 +4,7 @@ Markdown based chordsheets. Written in Typescript and based on [Markato](https:/
 
 ## Commands
 
-* Compile: `tsc -p tsconfig.json --watch`
-* Run: `node dist/src/chordown.js cdconfig.yaml`
+* Compile: `npm run build`
+    * To rebuild continuously: `npm run build -- --watch`
+* Run: `npm start -- cdconfig.yaml`
 * Test: `npm test`
