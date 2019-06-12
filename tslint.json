@@ -1,0 +1,8 @@
+{
+  "defaultSeverity": "warning",
+  "extends": ["tslint:recomended"],
+  "jsRules": {},
+  "rules": {},
+  "rulesDirectory": [],
+  "linterOptions":{"format":"stylish"}
+}
