@@ -29,7 +29,7 @@ export function export_plaintext(chordown: IChordown): string {
   if (
     !(
       Object.keys(chordown.header).length <= 1 &&
-      Object.keys(chordown.header)[0] == ""
+      Object.keys(chordown.header)[0] === ""
     )
   ) {
     for (const header_key of Object.keys(chordown.header)) {

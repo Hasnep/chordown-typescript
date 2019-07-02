@@ -13,9 +13,9 @@ export function separate_header(
   lines: string[],
 ): { header: string[]; body: string[] } {
   // given a list of lines, finds the header and splits into header and body
-  if (lines[0] == "---") {
+  if (lines[0] === "---") {
     for (let i = 1; i < lines.length; i++) {
-      if (lines[i] == "---") {
+      if (lines[i] === "---") {
         return {
           header: lines.slice(1, i),
           body: lines.slice(i + 1),
@@ -30,7 +30,7 @@ export function separate_header(
 
 // parsing lines
 export function parse_header(header_text: string): IHeader {
-  if (header_text == null || header_text == "") {
+  if (header_text == null || header_text === "") {
     return { title: "" };
   } else {
     header_text = header_text.replace(/(^.*?):(?=\S)/gm, "$1: "); // fix bad yaml
@@ -63,7 +63,7 @@ export function parse_line_section(line: string): string {
     .trim()
     .slice(1)
     .trim();
-  if (line.slice(-1) == ":") {
+  if (line.slice(-1) === ":") {
     line = line.slice(0, -1).trim();
   }
   line = to_sentence_case(line);
@@ -99,7 +99,7 @@ export function parse_body(body: string): ISection[] {
           }; // reset the curent line
         }
         // push the current section if it's not the default undefined section
-        if (current_section != undefined) {
+        if (current_section !== undefined) {
           body_parsed.push(current_section);
         }
         // start a new section
@@ -135,7 +135,7 @@ export function parse_body(body: string): ISection[] {
 
         // temp check for consisten lengths
         if (current_line.chords != null) {
-          if (current_line.chords.length + 1 != current_line.lyrics.length) {
+          if (current_line.chords.length + 1 !== current_line.lyrics.length) {
             console.error(
               "something bad happened on this line: " +
                 current_line.lyrics.join(""),

@@ -10,7 +10,7 @@ export function first_character(line: string): string {
 
 export function split_lines(str: string): string[] {
   // splits a string based on linebreaks
-  if (str == undefined) {
+  if (str === undefined) {
     return null;
   }
   return str.split(/\r\n|\r|\n/).map((line) => line.trim());

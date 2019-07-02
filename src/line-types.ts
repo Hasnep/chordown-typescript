@@ -8,15 +8,15 @@ export const line_section: number = 3;
 
 // checking line types
 export function is_line_blank(line: string): boolean {
-  return first_character(line.trim()) == "";
+  return first_character(line.trim()) === "";
 }
 
 export function is_line_chord(line: string): boolean {
-  return first_character(line.trim()) == ":";
+  return first_character(line.trim()) === ":";
 }
 
 export function is_line_section(line: string): boolean {
-  return first_character(line.trim()) == "#";
+  return first_character(line.trim()) === "#";
 }
 
 export function get_linetype(line: string): number {

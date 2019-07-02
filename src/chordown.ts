@@ -120,7 +120,7 @@ for (let i = 0; i < input_file_paths.length; i++) {
     );
     if (
       Object.keys(chordown_config.output.tex).includes("compile") &&
-      chordown_config.output.tex.compile != false
+      chordown_config.output.tex.compile !== false
     ) {
       const latex_compiler = chordown_config.output.tex.compile;
       const latex_compile_command: string =
