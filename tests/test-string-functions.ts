@@ -1,6 +1,6 @@
-import { to_sentence_case, first_character } from "../src/string-functions";
-import "mocha";
 import { assert } from "chai";
+import "mocha";
+import { first_character, to_sentence_case } from "../src/string-functions";
 
 describe("first_character", function() {
   it("should return the first charcter", function() {

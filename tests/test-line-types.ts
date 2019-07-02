@@ -1,16 +1,15 @@
+import { assert } from "chai";
+import "mocha";
 import {
   get_linetype,
-  line_text,
-  line_section,
-  line_chord,
-  line_blank,
-  is_line_section,
   is_line_blank,
-  is_line_chord
+  is_line_chord,
+  is_line_section,
+  line_blank,
+  line_chord,
+  line_section,
+  line_text,
 } from "../src/line-types";
-import "mocha";
-import { assert } from "chai";
-
 
 describe("is_line_blank", function() {
   it("returns true for empty lines", function() {
