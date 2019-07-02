@@ -30,5 +30,5 @@
     "start": "node dist/src/chordown.js"
   },
   "author": "Hannes Smit",
-  "license": "ISC"
+  "license": "GPL-3.0-or-later",
 }
