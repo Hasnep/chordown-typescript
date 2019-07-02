@@ -2,7 +2,7 @@
   "defaultSeverity": "warning",
   "extends": ["tslint:recommended"],
   "jsRules": {},
-  "rules": {},
+  "rules": { "variable-name": false },
   "rulesDirectory": [],
   "linterOptions":{"format":"stylish"}
 }
