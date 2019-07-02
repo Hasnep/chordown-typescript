@@ -31,6 +31,15 @@ describe("separate_header", function() {
   });
 });
 
+it("separates the header when the first line is blank", function() {
+  const lines = ["", "---", "title: aaa", "---", "body1", "body2"];
+  const expected_output = {
+    header: ["title: aaa"],
+    body: ["body1", "body2"],
+  };
+  assert.deepEqual(separate_header(lines), expected_output);
+});
+
 describe("parse_line_chord", function() {
   it("parses a chord line", function() {
     assert.deepEqual(parse_line_chord(": C G   Am F"), ["C", "G", "Am", "F"]);
