@@ -48,3 +48,6 @@ TempDir/*
 
 # Typescript files
 types
+
+# VS Code files
+.vscode
