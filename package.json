@@ -2,7 +2,7 @@
   "name": "chordown",
   "version": "1.0.0",
   "description": "markdown based chordsheets",
-  "main": "dist/chordown.js",
+  "main": "dist/src/chordown.js",
   "directories": {
     "test": "tests"
   },
