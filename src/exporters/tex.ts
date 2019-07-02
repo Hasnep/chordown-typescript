@@ -1,10 +1,10 @@
-import { Chordown, Line } from "../chordown";
+import { IChordown, ILine } from "../chordown";
 import { Config } from "../config";
 import { read_file_smart } from "../file-io";
 
 const preamble: string = read_file_smart("templates/preamble.txt");
 
-function export_tex_line(line: Line): string {
+function export_tex_line(line: ILine): string {
   let { chords, lyrics } = line;
 
   let out: string = "";
@@ -24,7 +24,7 @@ function export_tex_line(line: Line): string {
   return out;
 }
 
-export function export_tex(chordown: Chordown, config: Config): string {
+export function export_tex(chordown: IChordown, config: Config): string {
   let out: string = preamble;
   // if (Object.keys(config.output.tex).includes("columns")) {
   //   out +=

@@ -1,6 +1,6 @@
-import { Chordown, Line } from "../chordown";
+import { IChordown, ILine } from "../chordown";
 
-function export_onsong_line(line: Line): string {
+function export_onsong_line(line: ILine): string {
   let { chords, lyrics } = line;
   let out: string = "";
   if (chords == null) {
@@ -19,7 +19,7 @@ function export_onsong_line(line: Line): string {
   return out;
 }
 
-export function export_onsong(chordown: Chordown): string {
+export function export_onsong(chordown: IChordown): string {
   let out: string = "";
 
   out += chordown.header.title;

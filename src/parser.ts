@@ -1,4 +1,4 @@
-import { Header, Line, Section } from "./chordown";
+import { IHeader, ILine, ISection } from "./chordown";
 import { read_yaml_smart } from "./file-io";
 import {
   get_linetype,
@@ -29,12 +29,12 @@ export function separate_header(
 }
 
 // parsing lines
-export function parse_header(header_text: string): Header {
+export function parse_header(header_text: string): IHeader {
   if (header_text == null || header_text == "") {
     return { title: "" };
   } else {
     header_text = header_text.replace(/(^.*?):(?=\S)/gm, "$1: "); // fix bad yaml
-    let header: Header = { title: "" };
+    let header: IHeader = { title: "" };
 
     header = Object.assign(header, read_yaml_smart(header_text));
     return header;
@@ -70,16 +70,16 @@ export function parse_line_section(line: string): string {
   return line;
 }
 
-export function parse_body(body: string): Section[] {
-  const body_parsed: Section[] = []; // initialise output object
+export function parse_body(body: string): ISection[] {
+  const body_parsed: ISection[] = []; // initialise output object
 
   // initialise variables
-  let current_section: Section = {
+  let current_section: ISection = {
     name: null,
     repeats: null,
     lines: [],
   };
-  let current_line: Line = {
+  let current_line: ILine = {
     chords: null,
     lyrics: null,
   };

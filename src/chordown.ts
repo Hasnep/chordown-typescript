@@ -12,12 +12,12 @@ import {
 import { parse_body, parse_header, separate_header } from "./parser";
 import { get_file_name, split_lines } from "./string-functions";
 
-export interface Chordown {
-  header: Header;
-  body: Section[];
+export interface IChordown {
+  header: IHeader;
+  body: ISection[];
 }
 
-export interface Header {
+export interface IHeader {
   title: string;
   subtitle?: string;
   key?: string;
@@ -29,18 +29,18 @@ export interface Header {
   columns?: number;
 }
 
-export interface Section {
+export interface ISection {
   name: string;
   repeats: number;
-  lines: Line[];
+  lines: ILine[];
 }
 
-export interface Line {
+export interface ILine {
   chords: string[];
   lyrics: string[];
 }
 
-export function chordown(inupt_text: string): Chordown {
+export function chordown(inupt_text: string): IChordown {
   let { header, body } = separate_header(split_lines(inupt_text));
   if (header == null) {
     header = [""];
@@ -92,7 +92,7 @@ const {
 for (let i = 0; i < input_file_paths.length; i++) {
   const input_file_path: string = input_file_paths[i];
   const input_text: string = read_file_smart(input_file_path);
-  const chordown_object: Chordown = chordown(input_text);
+  const chordown_object: IChordown = chordown(input_text);
 
   // export
   const output_formats: string[] = Object.keys(chordown_config.output);
