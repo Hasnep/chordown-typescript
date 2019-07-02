@@ -1,31 +1,31 @@
-import { parse_line_chord, parse_body, separate_header } from "../src/parser";
-import "mocha";
 import { assert } from "chai";
+import "mocha";
+import { parse_body, parse_line_chord, separate_header } from "../src/parser";
 
 describe("separate_header", function() {
   it("separates the header", function() {
-    let lines = ["---", "title: aaa", "artist: bbb", "---", "body1", "body2"];
-    let expected_output = {
+    const lines = ["---", "title: aaa", "artist: bbb", "---", "body1", "body2"];
+    const expected_output = {
       header: ["title: aaa", "artist: bbb"],
-      body: ["body1", "body2"]
+      body: ["body1", "body2"],
     };
     assert.deepEqual(separate_header(lines), expected_output);
   });
 
   it("returns everything if there's no header", function() {
-    let lines = ["a", "b", "c", "body"];
-    let expected_output = {
+    const lines = ["a", "b", "c", "body"];
+    const expected_output = {
       header: null,
-      body: lines
+      body: lines,
     };
     assert.deepEqual(separate_header(lines), expected_output);
   });
 
   it("returns everything if there's an infinite header", function() {
-    let lines = ["---", "a", "b", "c", "body"];
-    let expected_output = {
+    const lines = ["---", "a", "b", "c", "body"];
+    const expected_output = {
       header: null,
-      body: lines
+      body: lines,
     };
     assert.deepEqual(separate_header(lines), expected_output);
   });
@@ -47,22 +47,22 @@ describe("parse_line_chord", function() {
 
 describe("parse_body", function() {
   it("parses an example correctly", function() {
-    let example_body =
+    const example_body =
       "# section\n: C Dm\nlyrics ^more ^ lyrics\n# new section \nlyrics and stuff";
-    let expected_body = [
+    const expected_body = [
       {
         name: "Section",
         repeats: null,
         lines: [
           { chords: ["C", "Dm"], lyrics: ["lyrics ", "more ", " lyrics"] },
-          { chords: null, lyrics: ["lyrics and stuff"] }
-        ]
+          { chords: null, lyrics: ["lyrics and stuff"] },
+        ],
       },
       {
         name: "New section",
         repeats: null,
-        lines: [{ chords: null, lyrics: ["lyrics and stuff"] }]
-      }
+        lines: [{ chords: null, lyrics: ["lyrics and stuff"] }],
+      },
     ];
     assert.deepEqual(parse_body(example_body), expected_body);
   });
