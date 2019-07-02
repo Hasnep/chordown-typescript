@@ -1,5 +1,7 @@
 // string manipulation
 export function to_sentence_case(s: string) {
+  // converts the input string to sentence case
+  // i.e. capitalises the first character and makes all other characters lowercase
   return s.slice(0, 1).toUpperCase() + s.slice(1).toLowerCase();
 }
 

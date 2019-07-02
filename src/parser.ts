@@ -133,7 +133,7 @@ export function parse_body(body: string): ISection[] {
         // replace the current line's lyrics
         current_line.lyrics = parse_line_text(line);
 
-        // temp check for consisten lengths
+        // temp check for equal number of chords in lyric line and chord line
         if (current_line.chords != null) {
           if (current_line.chords.length + 1 !== current_line.lyrics.length) {
             console.error(
