@@ -2,7 +2,11 @@
   "defaultSeverity": "warning",
   "extends": ["tslint:recommended"],
   "jsRules": {},
-  "rules": { "variable-name": false },
+  "rules": {
+    "variable-name": false,
+    "object-literal-sort-keys": false,
+    "only-arrow-functions": false
+  },
   "rulesDirectory": [],
   "linterOptions":{"format":"stylish"}
 }
