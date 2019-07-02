@@ -6,22 +6,22 @@ export function get_commandline_arg(): string {
   return yargs.argv._[0];
 }
 
-export interface Config {
+export interface IConfig {
   base: string;
   input: string;
-  output: ConfigOutput;
+  output: IConfigOutput;
 }
 
-interface ConfigOutput {
+interface IConfigOutput {
   json?: object;
   txt?: object;
   tex?: object;
   onsong?: object;
 }
 
-export function read_config_file(config_path: string): Config {
+export function read_config_file(config_path: string): IConfig {
   const config_string: string = read_file_smart(config_path);
-  let chordown_config: Config = { base: "", input: "", output: {} };
+  let chordown_config: IConfig = { base: "", input: "", output: {} };
   chordown_config = Object.assign(
     chordown_config,
     read_yaml_smart(config_string),
