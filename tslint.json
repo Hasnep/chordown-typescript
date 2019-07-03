@@ -8,5 +8,5 @@
     "only-arrow-functions": false
   },
   "rulesDirectory": [],
-  "linterOptions":{"format":"stylish"}
+  "linterOptions": { "format": "stylish" }
 }
