@@ -1,6 +1,6 @@
 import * as path from "path";
 import * as shell from "shelljs";
-import { Config, get_commandline_arg, read_config_file } from "./config";
+import { get_commandline_arg, IConfig, read_config_file } from "./config";
 import { export_onsong } from "./exporters/onsong";
 import { export_plaintext } from "./exporters/plaintext";
 import { export_tex } from "./exporters/tex";

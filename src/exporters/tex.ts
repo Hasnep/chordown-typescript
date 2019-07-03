@@ -1,5 +1,5 @@
 import { IChordown, ILine } from "../chordown";
-import { Config } from "../config";
+import { IConfig } from "../config";
 import { read_file_smart } from "../file-io";
 
 const preamble: string = read_file_smart("templates/preamble.txt");
@@ -24,7 +24,7 @@ function export_tex_line(line: ILine): string {
   return out;
 }
 
-export function export_tex(chordown: IChordown, config: Config): string {
+export function export_tex(chordown: IChordown, config: IConfig): string {
   let out: string = preamble;
   // if (Object.keys(config.output.tex).includes("columns")) {
   //   out +=
