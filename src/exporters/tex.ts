@@ -7,6 +7,11 @@ const preamble: string = read_file_smart("templates/preamble.txt");
 function export_tex_line(line: ILine): string {
   let { chords, lyrics } = line;
 
+  // escape special TeX characters
+  if (lyrics != null) {
+    lyrics = lyrics.map(escape_tex);
+  }
+
   let out: string = "";
   if (chords == null) {
     out += lyrics.join("");
@@ -26,6 +31,14 @@ function export_tex_line(line: ILine): string {
 
 export function export_tex(chordown: IChordown, config: IConfig): string {
   let out: string = preamble;
+
+  for (const [key, value] of Object.entries(chordown.header)) {
+    if (value != null) {
+      chordown.header[key] = escape_tex(value);
+      console.log(value);
+    }
+  }
+
   // if (Object.keys(config.output.tex).includes("columns")) {
   //   out +=
   //     "\\songcolumns{" +
@@ -74,4 +87,12 @@ export function export_tex(chordown: IChordown, config: IConfig): string {
     out += "\\endverse\n";
   }
   return out + "\\endsong\n\\end{document}\n";
+}
+
+export function escape_tex(s: string): string {
+  if (s != null) {
+    return s.toString().replace("&", "\\&");
+  } else {
+    return null;
+  }
 }
