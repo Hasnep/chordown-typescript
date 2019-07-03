@@ -52,8 +52,8 @@ export function chordown(inupt_text: string): IChordown {
 }
 
 function config_to_file_paths(
-  config: Config,
 ): { input: string[]; output: object } {
+  config: IConfig,
   const input_folder_path: string = path.join(config.base, config.input);
   let input_file_paths: string[];
   try {
