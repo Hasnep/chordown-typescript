@@ -35,7 +35,6 @@ export function export_tex(chordown: IChordown, config: IConfig): string {
   for (const [key, value] of Object.entries(chordown.header)) {
     if (value != null) {
       chordown.header[key] = escape_tex(value);
-      console.log(value);
     }
   }
 
