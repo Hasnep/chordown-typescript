@@ -2,10 +2,10 @@ import { IHeader, ILine, ISection } from "./chordown";
 import { read_yaml_smart } from "./file-io";
 import {
   get_linetype,
-  line_blank,
-  line_chord,
-  line_section,
-  line_text,
+  linetype_blank,
+  linetype_chord,
+  linetype_lyric,
+  linetype_section,
 } from "./line-types";
 import { split_lines, to_sentence_case } from "./string-functions";
 
@@ -96,7 +96,7 @@ export function parse_body(body: string): ISection[] {
   // loop over each line
   for (const line of split_lines(body)) {
     switch (get_linetype(line)) {
-      case line_blank:
+      case linetype_blank:
         break;
 
       case linetype_section:
