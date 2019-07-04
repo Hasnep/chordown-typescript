@@ -20,30 +20,24 @@ describe("separate_header", function() {
 
   it("returns everything if there's no header", function() {
     const lines = ["a", "b", "c", "body"];
-    const expected_output = {
-      header: null,
-      body: lines,
-    };
+    const expected_output = { header: null, body: lines };
     assert.deepEqual(separate_header(lines), expected_output);
   });
 
-  it("returns everything if there's an infinite header", function() {
+  it("returns everything if the header doesn't end", function() {
     const lines = ["---", "a", "b", "c", "body"];
+    const expected_output = { header: null, body: lines };
+    assert.deepEqual(separate_header(lines), expected_output);
+  });
+
+  it("separates the header when the first line is blank", function() {
+    const lines = ["", "---", "title: aaa", "---", "body1", "body2"];
     const expected_output = {
-      header: null,
-      body: lines,
+      header: ["title: aaa"],
+      body: ["body1", "body2"],
     };
     assert.deepEqual(separate_header(lines), expected_output);
   });
-});
-
-it("separates the header when the first line is blank", function() {
-  const lines = ["", "---", "title: aaa", "---", "body1", "body2"];
-  const expected_output = {
-    header: ["title: aaa"],
-    body: ["body1", "body2"],
-  };
-  assert.deepEqual(separate_header(lines), expected_output);
 });
 
 describe("parse_line_chord", function() {
@@ -83,6 +77,8 @@ describe("parse_body", function() {
     const parsed_body = parse_body(example_body);
     assert.deepEqual(parsed_body, expected_body);
   });
+});
+
 describe("is_line_blank", function() {
   it("returns true for blank lines", function() {
     assert.isTrue(
