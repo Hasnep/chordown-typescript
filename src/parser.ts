@@ -13,29 +13,44 @@ export function separate_header(
   lines: string[],
 ): { header: string[]; body: string[] } {
   // given a list of lines, finds the header and splits into header and body
-  if (lines[0] === "---") {
-    for (let i = 1; i < lines.length; i++) {
-      if (lines[i] === "---") {
-        return {
-          header: lines.slice(1, i),
-          body: lines.slice(i + 1),
-        };
-      }
+
+  // skip blank lines
+  let header_start: number;
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i] === "---") {
+      header_start = i + 1;
+      break;
     }
-  } else {
-  console.warn("Did not contain a header.");
-  return { header: null, body: lines };
+  }
+  if (header_start == null) {
+    console.warn("Did not contain a header.");
+    return { header: null, body: lines };
+  }
+  let header_end: number;
+  for (let i = header_start; i < lines.length; i++) {
+    if (lines[i] === "---") {
+      header_end = i;
+      return {
+        header: lines.slice(header_start, header_end),
+        body: lines.slice(header_end + 1),
+      };
+    }
+  }
+  if (header_end == null) {
+    console.warn("Did not contain a header.");
+    return { header: null, body: lines };
   }
 }
 
 // parsing lines
 export function parse_header(header_text: string): IHeader {
+  // todo: consider making this more smart at the cost of readability
+  // if there is no header then fill in a header
   if (header_text == null || header_text === "") {
     return { title: "" };
   } else {
     header_text = header_text.replace(/(^.*?):(?=\S)/gm, "$1: "); // fix bad yaml
     let header: IHeader = { title: "" };
-
     header = Object.assign(header, read_yaml_smart(header_text));
     return header;
   }
@@ -73,45 +88,37 @@ export function parse_line_section(line: string): string {
 export function parse_body(body: string): ISection[] {
   const body_parsed: ISection[] = []; // initialise output object
 
-  // initialise variables
-  let current_section: ISection = {
-    name: null,
-    repeats: null,
-    lines: [],
-  };
-  let current_line: ILine = {
-    chords: null,
-    lyrics: null,
-  };
+  // initialise a blank section
+  let current_section: ISection = { name: null, repeats: null, lines: [] };
+  // initialise a blank line
+  let current_line: ILine = { chords: null, lyrics: null };
 
   // loop over each line
   for (const line of split_lines(body)) {
     switch (get_linetype(line)) {
       case line_blank:
         break;
-      case line_section:
+
+      case linetype_section:
         // if the current line has content, push it
-        if (current_line.chords != null || current_line.lyrics != null) {
+        if (!is_line_blank(current_line)) {
           current_section.lines.push(current_line);
-          current_line = {
-            chords: null,
-            lyrics: null,
-          }; // reset the curent line
+          current_line = { chords: null, lyrics: null }; // reset the curent line
         }
+
         // push the current section if it's not the default undefined section
-        if (current_section !== undefined) {
+        if (!is_section_blank(current_section)) {
           body_parsed.push(current_section);
         }
+
         // start a new section
-        current_section = {
-          name: parse_line_section(line),
-          repeats: null,
-          lines: [],
-        };
+        current_section = { name: null, repeats: null, lines: [] };
+        current_section.name = parse_line_section(line);
         break;
-      case line_chord:
+
+      case linetype_chord:
         // if the current line has lyrics or chords, push it
-        if (current_line.chords != null || current_line.lyrics != null) {
+        if (!is_line_blank(current_line)) {
           current_section.lines.push(current_line);
           current_line = {
             chords: null,
@@ -121,7 +128,8 @@ export function parse_body(body: string): ISection[] {
         // replace the current line's chords
         current_line.chords = parse_line_chord(line);
         break;
-      case line_text:
+
+      case linetype_lyric:
         // if the current line has lyrics, push it
         if (current_line.lyrics != null) {
           current_section.lines.push(current_line);
@@ -136,25 +144,24 @@ export function parse_body(body: string): ISection[] {
         // temp check for equal number of chords in lyric line and chord line
         if (current_line.chords != null) {
           if (current_line.chords.length + 1 !== current_line.lyrics.length) {
-            console.error(
-              "something bad happened on this line: " +
+            console.warn(
+              "Different number of chords and lyrics on this line: " +
                 current_line.lyrics.join(""),
             );
           }
         }
+        // end of temp check
         break;
     }
   }
   // push final line if it hasn't been pushed yet
-  if (current_line.chords != null || current_line.lyrics != null) {
+  if (!is_line_blank(current_line)) {
     current_section.lines.push(current_line);
-    current_line = {
-      chords: null,
-      lyrics: null,
-    };
   }
-  // push the final section
-  body_parsed.push(current_section);
+  // push the final section if it is not blank
+  if (!is_section_blank(current_section)) {
+    body_parsed.push(current_section);
+  }
   return body_parsed;
 }
 

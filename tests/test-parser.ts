@@ -63,7 +63,7 @@ describe("parse_line_chord", function() {
 describe("parse_body", function() {
   it("parses an example correctly", function() {
     const example_body =
-      "# section\n: C Dm\nlyrics ^more ^ lyrics\n# new section \nlyrics and stuff";
+      "# section\n: C Dm\nlyrics ^more ^ lyrics\nlyrics and stuff\n# new section \nlyrics and stuff";
     const expected_body = [
       {
         name: "Section",
@@ -79,7 +79,10 @@ describe("parse_body", function() {
         lines: [{ chords: null, lyrics: ["lyrics and stuff"] }],
       },
     ];
-    assert.deepEqual(parse_body(example_body), expected_body);
+
+    const parsed_body = parse_body(example_body);
+    assert.deepEqual(parsed_body, expected_body);
+  });
 describe("is_line_blank", function() {
   it("returns true for blank lines", function() {
     assert.isTrue(
