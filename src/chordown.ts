@@ -83,7 +83,7 @@ function config_to_file_paths(
 }
 
 const config_path = get_commandline_arg();
-const chordown_config = read_config_file(config_path);
+const chordown_config: IConfig = read_config_file(config_path);
 const {
   input: input_file_paths,
   output: output_file_paths,
