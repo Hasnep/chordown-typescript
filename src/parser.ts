@@ -2,10 +2,10 @@ import { IHeader, ILine, ISection } from "./chordown";
 import { read_yaml_smart } from "./file-io";
 import {
   get_linetype,
-  line_blank,
-  line_chord,
-  line_section,
-  line_text,
+  linetype_blank,
+  linetype_chord,
+  linetype_lyric,
+  linetype_section,
 } from "./line-types";
 import { split_lines, to_sentence_case } from "./string-functions";
 
@@ -87,9 +87,9 @@ export function parse_body(body: string): ISection[] {
   // loop over each line
   for (const line of split_lines(body)) {
     switch (get_linetype(line)) {
-      case line_blank:
+      case linetype_blank:
         break;
-      case line_section:
+      case linetype_section:
         // if the current line has content, push it
         if (current_line.chords != null || current_line.lyrics != null) {
           current_section.lines.push(current_line);
@@ -109,7 +109,7 @@ export function parse_body(body: string): ISection[] {
           lines: [],
         };
         break;
-      case line_chord:
+      case linetype_chord:
         // if the current line has lyrics or chords, push it
         if (current_line.chords != null || current_line.lyrics != null) {
           current_section.lines.push(current_line);
@@ -121,7 +121,7 @@ export function parse_body(body: string): ISection[] {
         // replace the current line's chords
         current_line.chords = parse_line_chord(line);
         break;
-      case line_text:
+      case linetype_lyric:
         // if the current line has lyrics, push it
         if (current_line.lyrics != null) {
           current_section.lines.push(current_line);
