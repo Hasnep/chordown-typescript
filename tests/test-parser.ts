@@ -134,7 +134,7 @@ describe("is_section_blank", function() {
       is_section_blank({
         name: null,
         repeats: null,
-        lines: [{ chords: ["x","y"], lyrics: ["C"] }],
+        lines: [{ chords: ["x", "y"], lyrics: ["C"] }],
       }),
     );
   });
