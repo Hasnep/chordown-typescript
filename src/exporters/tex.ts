@@ -12,6 +12,13 @@ function export_tex_line(line: ILine): string {
     lyrics = lyrics.map(escape_tex);
   }
 
+  // replace flats with ampersands for the songs package
+  if (chords != null) {
+    chords = chords.map((c) => {
+      return c.replace("b", "&");
+    });
+  }
+
   let out: string = "";
   if (chords == null) {
     out += lyrics.join("");
@@ -47,7 +54,7 @@ export function export_tex(chordown: IChordown, config: IConfig): string {
   //   out +=
   //     "\\songcolumns{0} % set the number of columns to 0 to return to default page layout\n";
   // }
-  out += "\\begin{document}\n";
+  out += "\\begin{document}\n\\begin{songs}{}\n";
   const title: string = chordown.header.title;
   let subtitle: string = "";
   if (chordown.header.hasOwnProperty("subtitle")) {
@@ -85,7 +92,7 @@ export function export_tex(chordown: IChordown, config: IConfig): string {
     }
     out += "\\endverse\n";
   }
-  return out + "\\endsong\n\\end{document}\n";
+  return out + "\\endsong\n\\end{songs}\n\\end{document}\n";
 }
 
 export function escape_tex(s: string): string {
