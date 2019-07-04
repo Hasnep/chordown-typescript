@@ -14,11 +14,14 @@
 \fi
 
 %% non-songs package settings
-\usepackage[paperheight=900pt, paperwidth=1600pt, margin=10em]{geometry} % 16:9 landscape page size
+\usepackage[paperheight=540pt, paperwidth=960pt, margin=10pt]{geometry} % 16:9 landscape page size
+% \usepackage[paperheight=216mm, paperwidth=384mm, margin=10mm]{geometry} % 16:9 landscape page size
+
 \pagenumbering{gobble} % remove page numbers
 
 %% songs package
 \setlength{\sbarheight}{0pt} % set horizontal line thickness to 0 to remove the lines
+\songcolumns{2} % set the number of columns to 0 to return to default page layout
 \setlength{\cbarwidth}{1.5cm} % remove the vertical bar next to choruses
 \renewcommand{\flatsymbol}{\ensuremath{\flat}} % redefine the flat symbol to not be superscript
 \renewcommand{\sharpsymbol}{\ensuremath{\sharp}} % redefine the sharp symbol to be a sharp instead of a hash and also not be superscript
