@@ -73,6 +73,88 @@ describe("parse_body", function() {
         lines: [{ chords: null, lyrics: ["lyrics and stuff"] }],
       },
     ];
-    assert.deepEqual(parse_body(example_body), expected_body);
+
+    const parsed_body = parse_body(example_body);
+    assert.deepEqual(parsed_body, expected_body);
+  });
+
+  it("remembers chords from a previous verse", function() {
+    const example_body =
+      "# verse\n: C G\nlyrics ^more ^ lyrics\n# verse \nlyrics ^and ^ stuff";
+    const expected_body = [
+      {
+        name: "Verse",
+        repeats: null,
+        lines: [{ chords: ["C", "G"], lyrics: ["lyrics ", "more ", " lyrics"] }],
+      },
+      {
+        name: "Verse",
+        repeats: null,
+        lines: [{ chords: ["C", "G"], lyrics: ["lyrics ", "and ", " stuff"] }],
+      },
+    ];
+    const parsed_body = parse_body(example_body);
+    assert.deepEqual(parsed_body, expected_body);
+  });
+});
+
+describe("is_line_blank", function() {
+  it("returns true for blank lines", function() {
+    assert.isTrue(
+      is_line_blank({
+        chords: null,
+        lyrics: null,
+      }),
+    );
+  });
+
+  it("returns false for lines with chords", function() {
+    assert.isFalse(
+      is_line_blank({
+        chords: ["C"],
+        lyrics: null,
+      }),
+    );
+  });
+
+  it("returns false for lines with lyrics", function() {
+    assert.isFalse(
+      is_line_blank({
+        chords: null,
+        lyrics: ["lyric"],
+      }),
+    );
+  });
+});
+
+describe("is_section_blank", function() {
+  it("returns true for blank sections", function() {
+    assert.isTrue(
+      is_section_blank({
+        name: null,
+        repeats: null,
+        lines: [],
+      }),
+    );
+  });
+
+  it("returns true for named but blank sections", function() {
+    assert.isTrue(
+      is_section_blank({
+        name: "test",
+        repeats: null,
+        lines: [],
+      }),
+    );
+  });
+
+  it("returns false for sections with lines", function() {
+    assert.isFalse(
+      is_section_blank({
+        name: null,
+        repeats: null,
+        lines: [{ chords: ["x", "y"], lyrics: ["C"] }],
+      }),
+    );
   });
 });
