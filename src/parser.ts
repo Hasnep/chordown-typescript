@@ -157,3 +157,11 @@ export function parse_body(body: string): ISection[] {
   body_parsed.push(current_section);
   return body_parsed;
 }
+
+export function is_line_blank(line: ILine): boolean {
+  return line.chords == null && line.lyrics == null;
+}
+
+export function is_section_blank(section: ISection): boolean {
+  return section.lines.length === 0;
+}

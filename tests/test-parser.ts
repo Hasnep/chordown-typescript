@@ -1,6 +1,12 @@
 import { assert } from "chai";
 import "mocha";
-import { parse_body, parse_line_chord, separate_header } from "../src/parser";
+import {
+  is_line_blank,
+  is_section_blank,
+  parse_body,
+  parse_line_chord,
+  separate_header,
+} from "../src/parser";
 
 describe("separate_header", function() {
   it("separates the header", function() {
@@ -74,5 +80,63 @@ describe("parse_body", function() {
       },
     ];
     assert.deepEqual(parse_body(example_body), expected_body);
+describe("is_line_blank", function() {
+  it("returns true for blank lines", function() {
+    assert.isTrue(
+      is_line_blank({
+        chords: null,
+        lyrics: null,
+      }),
+    );
+  });
+
+  it("returns false for lines with chords", function() {
+    assert.isFalse(
+      is_line_blank({
+        chords: ["C"],
+        lyrics: null,
+      }),
+    );
+  });
+
+  it("returns false for lines with lyrics", function() {
+    assert.isFalse(
+      is_line_blank({
+        chords: null,
+        lyrics: ["lyric"],
+      }),
+    );
+  });
+});
+
+describe("is_section_blank", function() {
+  it("returns true for blank sections", function() {
+    assert.isTrue(
+      is_section_blank({
+        name: null,
+        repeats: null,
+        lines: [],
+      }),
+    );
+  });
+
+  it("returns true for named but blank sections", function() {
+    assert.isTrue(
+      is_section_blank({
+        name: "test",
+        repeats: null,
+        lines: [],
+      }),
+    );
+  });
+
+  it("returns false for sections with lines", function() {
+    assert.isFalse(
+      is_section_blank({
+        name: null,
+        repeats: null,
+        lines: [{ chords: ["x","y"], lyrics: ["C"] }],
+      }),
+    );
   });
 });
