@@ -56,5 +56,6 @@ function make_sure_folder(folder_path: string): void {
 }
 
 export function delete_folder(folder_path: string): void {
+  // deletes a folder
   removeSync(folder_path, {});
 }
