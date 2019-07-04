@@ -1,10 +1,10 @@
 import { assert } from "chai";
 import "mocha";
-import { read_config_file } from "../src/config";
+import { IConfig, IConfigOutputs, read_config_file } from "../src/config";
 
 describe("read_config_file", function() {
   it("reads a config file", function() {
-    const expected_config = {
+    const expected_config: IConfig = {
       base: "~/aaa/bbb/",
       input: "ccc/",
       output: {

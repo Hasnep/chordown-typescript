@@ -9,14 +9,23 @@ export function get_commandline_arg(): string {
 export interface IConfig {
   base: string;
   input: string;
-  output: IConfigOutput;
+  output: IConfigOutputs;
 }
 
-interface IConfigOutput {
+export interface IConfigOutputs {
   json?: object;
   txt?: object;
-  tex?: object;
+  tex?: ITeXConfigOutput;
   onsong?: object;
+}
+
+export interface IConfigOutput {
+  path: string;
+}
+
+export interface ITeXConfigOutput {
+  path: string;
+  compile?: string;
 }
 
 export function read_config_file(config_path: string): IConfig {
