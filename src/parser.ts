@@ -73,7 +73,9 @@ export function parse_line_text(line: string): string[] {
   return line.replace(/\s+/, " ").split("^");
 }
 
-export function parse_line_section(line: string): string {
+export function parse_line_section(
+  line: string,
+): { name: string; repeats: number } {
   line = line
     .trim()
     .slice(1)
@@ -82,7 +84,7 @@ export function parse_line_section(line: string): string {
     line = line.slice(0, -1).trim();
   }
   line = to_sentence_case(line);
-  return line;
+  return { name: line, repeats: null };
 }
 
 export function parse_body(body: string): ISection[] {
@@ -113,7 +115,9 @@ export function parse_body(body: string): ISection[] {
 
         // start a new section
         current_section = { name: null, repeats: null, lines: [] };
-        current_section.name = parse_line_section(line);
+        const parsed_section = parse_line_section(line);
+        current_section.name = parsed_section.name;
+        current_section.repeats = parsed_section.repeats;
         break;
 
       case linetype_chord:
