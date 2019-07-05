@@ -5,6 +5,7 @@ import {
   is_section_blank,
   parse_body,
   parse_line_chord,
+  parse_line_section,
   separate_header,
 } from "../src/parser";
 
@@ -51,6 +52,29 @@ describe("parse_line_chord", function() {
 
   it("parses a blank chord line as no chords", function() {
     assert.deepEqual(parse_line_chord("  :   "), []);
+  });
+});
+
+describe("parse_line_section", function() {
+  it("parses a section line", function() {
+    assert.deepEqual(parse_line_section("# Verse"), {
+      name: "Verse",
+      repeats: null,
+    });
+  });
+
+  it("capitalises section names", function() {
+    assert.deepEqual(parse_line_section("# verse"), {
+      name: "Verse",
+      repeats: null,
+    });
+  });
+
+  it("parses a section linewith a repeat", function() {
+    assert.deepEqual(parse_line_section("# Verse (x2)"), {
+      name: "Verse",
+      repeats: 2,
+    });
   });
 });
 
