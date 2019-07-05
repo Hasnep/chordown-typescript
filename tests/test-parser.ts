@@ -1,6 +1,12 @@
 import { assert } from "chai";
 import "mocha";
-import { parse_body, parse_line_chord, separate_header } from "../src/parser";
+import {
+  is_line_blank,
+  is_section_blank,
+  parse_body,
+  parse_line_chord,
+  separate_header,
+} from "../src/parser";
 
 describe("separate_header", function() {
   it("separates the header", function() {
@@ -14,30 +20,24 @@ describe("separate_header", function() {
 
   it("returns everything if there's no header", function() {
     const lines = ["a", "b", "c", "body"];
-    const expected_output = {
-      header: null,
-      body: lines,
-    };
+    const expected_output = { header: null, body: lines };
     assert.deepEqual(separate_header(lines), expected_output);
   });
 
-  it("returns everything if there's an infinite header", function() {
+  it("returns everything if the header doesn't end", function() {
     const lines = ["---", "a", "b", "c", "body"];
+    const expected_output = { header: null, body: lines };
+    assert.deepEqual(separate_header(lines), expected_output);
+  });
+
+  it("separates the header when the first line is blank", function() {
+    const lines = ["", "---", "title: aaa", "---", "body1", "body2"];
     const expected_output = {
-      header: null,
-      body: lines,
+      header: ["title: aaa"],
+      body: ["body1", "body2"],
     };
     assert.deepEqual(separate_header(lines), expected_output);
   });
-});
-
-it("separates the header when the first line is blank", function() {
-  const lines = ["", "---", "title: aaa", "---", "body1", "body2"];
-  const expected_output = {
-    header: ["title: aaa"],
-    body: ["body1", "body2"],
-  };
-  assert.deepEqual(separate_header(lines), expected_output);
 });
 
 describe("parse_line_chord", function() {
@@ -57,7 +57,7 @@ describe("parse_line_chord", function() {
 describe("parse_body", function() {
   it("parses an example correctly", function() {
     const example_body =
-      "# section\n: C Dm\nlyrics ^more ^ lyrics\n# new section \nlyrics and stuff";
+      "# section\n: C Dm\nlyrics ^more ^ lyrics\nlyrics and stuff\n# new section \nlyrics and stuff";
     const expected_body = [
       {
         name: "Section",
