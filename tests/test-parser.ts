@@ -70,10 +70,17 @@ describe("parse_line_section", function() {
     });
   });
 
-  it("parses a section linewith a repeat", function() {
-    assert.deepEqual(parse_line_section("# Verse (x2)"), {
+  it("parses a section line with a repeat", function() {
+    assert.deepEqual(parse_line_section("# Verse x2"), {
       name: "Verse",
       repeats: 2,
+    });
+  });
+
+  it("parses a section line with a repeat in brackets", function() {
+    assert.deepEqual(parse_line_section("# Verse (x6)"), {
+      name: "Verse",
+      repeats: 6,
     });
   });
 });

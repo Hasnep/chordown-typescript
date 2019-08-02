@@ -76,15 +76,19 @@ export function parse_line_text(line: string): string[] {
 export function parse_line_section(
   line: string,
 ): { name: string; repeats: number } {
+  const repeat_regex = /\(?x(\d+)\)?/;
+  const repeats_match = line.match(repeat_regex);
+  let n_repeats: number = null;
+  if (repeats_match !== null) {
+    n_repeats = Number(repeats_match[1]);
+    line = line.replace(repeat_regex, "");
+  }
   line = line
     .trim()
     .slice(1)
     .trim();
-  if (line.slice(-1) === ":") {
-    line = line.slice(0, -1).trim();
-  }
   line = to_sentence_case(line);
-  return { name: line, repeats: null };
+  return { name: line, repeats: n_repeats };
 }
 
 export function parse_body(body: string): ISection[] {
