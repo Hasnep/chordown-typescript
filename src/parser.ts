@@ -84,8 +84,8 @@ export function parse_line_section(line: string): string {
 }
 
 export function parse_body(body: string): ISection[] {
-  const body_parsed: ISection[] = []; // initialise output object
-
+  // initialise output object
+  const body_parsed: ISection[] = [];
   // initialise a blank section
   let current_section: ISection = { name: null, repeats: null, lines: [] };
   // initialise a blank line
