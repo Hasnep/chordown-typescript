@@ -150,6 +150,13 @@ export function parse_body(body: string): ISection[] {
         // replace the current line's lyrics
         current_line.lyrics = parse_line_lyrics(line);
 
+        // if there are no chords currently, try to remember chords
+        if (current_line.chords == null) {
+          for (let i = 0; i < current_line.lyrics.length; i++) {
+            current_line.chords.push(remembered_chords.pop());
+          }
+        }
+
         // temp check for equal number of chords in lyric line and chord line
         if (current_line.chords != null) {
           if (current_line.chords.length + 1 !== current_line.lyrics.length) {
