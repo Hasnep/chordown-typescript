@@ -90,6 +90,8 @@ export function parse_body(body: string): ISection[] {
   let current_section: ISection = { name: null, repeats: null, lines: [] };
   // initialise a blank line
   let current_line: ILine = { chords: null, lyrics: null };
+  // initialise a sequence of chords to remember
+  let remembered_chords: string[] = [];
 
   // loop over each line
   for (const line of split_lines(body)) {
@@ -111,6 +113,18 @@ export function parse_body(body: string): ISection[] {
         // start a new section
         current_section = { name: null, repeats: null, lines: [] };
         current_section.name = parse_line_section(line);
+
+        // check if there is a section to remember
+        for (let remembered_section of body_parsed) {
+          if (remembered_section.name === current_section.name) {
+            for (let remembered_line of remembered_section.lines) {
+              for (let remembered_chord of remembered_line.chords) {
+                remembered_chords.push(remembered_chord);
+              }
+            }
+            break;
+          }
+        }
         break;
       case linetype_chord:
         // if the current line has lyrics or chords, push it
