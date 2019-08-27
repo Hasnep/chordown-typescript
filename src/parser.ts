@@ -152,7 +152,7 @@ export function parse_body(body: string): ISection[] {
 
         // if there are no chords currently, try to remember chords
         if (current_line.chords == null) {
-          for (let i = 0; i < current_line.lyrics.length; i++) {
+          for (let i = 0; i < current_line.lyrics.length - 1; i++) {
             current_line.chords.push(remembered_chords.pop());
           }
         }
