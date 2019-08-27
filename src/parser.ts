@@ -9,9 +9,7 @@ import {
 } from "./line-types";
 import { split_lines, to_sentence_case } from "./string-functions";
 
-export function separate_header(
-  lines: string[],
-): { header: string[]; body: string[] } {
+export function separate_header(lines: string[]): { header: string[]; body: string[] } {
   // given a list of lines, finds the header and splits into header and body
 
   // skip blank lines
@@ -141,10 +139,7 @@ export function parse_body(body: string): ISection[] {
         // temp check for equal number of chords in lyric line and chord line
         if (current_line.chords != null) {
           if (current_line.chords.length + 1 !== current_line.lyrics.length) {
-            console.warn(
-              "Different number of chords and lyrics on this line: " +
-                current_line.lyrics.join(""),
-            );
+            console.warn("Different number of chords and lyrics on this line: " + current_line.lyrics.join(""));
           }
         }
         // end of temp check
