@@ -69,7 +69,7 @@ export function parse_line_chord(line: string): string[] {
   }
 }
 
-export function parse_line_text(line: string): string[] {
+export function parse_line_lyrics(line: string): string[] {
   return line.replace(/\s+/, " ").split("^");
 }
 
@@ -136,7 +136,7 @@ export function parse_body(body: string): ISection[] {
           };
         }
         // replace the current line's lyrics
-        current_line.lyrics = parse_line_text(line);
+        current_line.lyrics = parse_line_lyrics(line);
 
         // temp check for equal number of chords in lyric line and chord line
         if (current_line.chords != null) {
