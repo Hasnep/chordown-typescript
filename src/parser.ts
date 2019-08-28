@@ -139,6 +139,19 @@ export function parse_body(body: string): ISection[] {
         current_line.chords = parse_line_chord(line);
         break;
       case linetype_lyric:
+        // if there are no chords currently, try to remember chords
+        if (current_line.chords === null) {
+          current_line.chords = [];
+          for (let i = 0; i < current_line.lyrics.length - 1; i++) {
+            if (remembered_chords.length > 0) {
+              console.log(remembered_chords)
+              current_line.chords.push(remembered_chords.shift());
+            }
+          }
+          console.log("I rememebered these chords:")
+          console.log(current_line)
+        }
+
         // if the current line has lyrics, push it
         if (current_line.lyrics != null) {
           current_section.lines.push(current_line);
@@ -147,16 +160,9 @@ export function parse_body(body: string): ISection[] {
             lyrics: null,
           };
         }
+
         // replace the current line's lyrics
         current_line.lyrics = parse_line_lyrics(line);
-
-        // if there are no chords currently, try to remember chords
-        if (current_line.chords == null) {
-          for (let i = 0; i < current_line.lyrics.length - 1; i++) {
-            console.log(remembered_chords)
-            current_line.chords.push(remembered_chords.shift());
-          }
-        }
 
         // temp check for equal number of chords in lyric line and chord line
         if (current_line.chords != null) {
