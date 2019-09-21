@@ -32,7 +32,7 @@ export function export_plaintext(chordown: IChordown): string {
   for (const section of chordown.body) {
     if (section.name != null) {
       out += section.name + ":";
-      if (section.repeats == null) {
+      if (section.repeats != null) {
         out += " (x" + section.repeats + ")";
       }
       out += "\n";
