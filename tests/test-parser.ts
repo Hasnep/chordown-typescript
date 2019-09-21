@@ -5,6 +5,7 @@ import {
   is_section_blank,
   parse_body,
   parse_line_chord,
+  parse_line_section,
   separate_header,
 } from "../src/parser";
 
@@ -54,6 +55,36 @@ describe("parse_line_chord", function() {
   });
 });
 
+describe("parse_line_section", function() {
+  it("parses a section line", function() {
+    assert.deepEqual(parse_line_section("# Verse"), {
+      name: "Verse",
+      repeats: null,
+    });
+  });
+
+  it("capitalises section names", function() {
+    assert.deepEqual(parse_line_section("# verse"), {
+      name: "Verse",
+      repeats: null,
+    });
+  });
+
+  it("parses a section line with a repeat", function() {
+    assert.deepEqual(parse_line_section("# Verse x2"), {
+      name: "Verse",
+      repeats: 2,
+    });
+  });
+
+  it("parses a section line with a repeat in brackets", function() {
+    assert.deepEqual(parse_line_section("# Verse (x6)"), {
+      name: "Verse",
+      repeats: 6,
+    });
+  });
+});
+
 describe("parse_body", function() {
   it("parses an example correctly", function() {
     const example_body =
@@ -74,25 +105,6 @@ describe("parse_body", function() {
       },
     ];
 
-    const parsed_body = parse_body(example_body);
-    assert.deepEqual(parsed_body, expected_body);
-  });
-
-  it("remembers chords from a previous verse", function() {
-    const example_body =
-      "# verse\n: C G\nlyrics ^more ^ lyrics\n# verse \nlyrics ^and ^ stuff";
-    const expected_body = [
-      {
-        name: "Verse",
-        repeats: null,
-        lines: [{ chords: ["C", "G"], lyrics: ["lyrics ", "more ", " lyrics"] }],
-      },
-      {
-        name: "Verse",
-        repeats: null,
-        lines: [{ chords: ["C", "G"], lyrics: ["lyrics ", "and ", " stuff"] }],
-      },
-    ];
     const parsed_body = parse_body(example_body);
     assert.deepEqual(parsed_body, expected_body);
   });
