@@ -9,7 +9,9 @@ import {
 } from "./line-types";
 import { split_lines, to_sentence_case } from "./string-functions";
 
-export function separate_header(lines: string[]): { header: string[]; body: string[] } {
+export function separate_header(
+  lines: string[],
+): { header: string[]; body: string[] } {
   // given a list of lines, finds the header and splits into header and body
 
   // skip blank lines
@@ -67,37 +69,42 @@ export function parse_line_chord(line: string): string[] {
   }
 }
 
-export function parse_line_lyrics(line: string): string[] {
+export function parse_line_text(line: string): string[] {
   return line.replace(/\s+/, " ").split("^");
 }
 
-export function parse_line_section(line: string): string {
+export function parse_line_section(
+  line: string,
+): { name: string; repeats: number } {
+  const repeat_regex = /\(?x(\d+)\)?/;
+  const repeats_match = line.match(repeat_regex);
+  let n_repeats: number = null;
+  if (repeats_match !== null) {
+    n_repeats = Number(repeats_match[1]);
+    line = line.replace(repeat_regex, "");
+  }
   line = line
     .trim()
     .slice(1)
     .trim();
-  if (line.slice(-1) === ":") {
-    line = line.slice(0, -1).trim();
-  }
   line = to_sentence_case(line);
-  return line;
+  return { name: line, repeats: n_repeats };
 }
 
 export function parse_body(body: string): ISection[] {
-  // initialise output object
-  const body_parsed: ISection[] = [];
+  const body_parsed: ISection[] = []; // initialise output object
+
   // initialise a blank section
   let current_section: ISection = { name: null, repeats: null, lines: [] };
   // initialise a blank line
   let current_line: ILine = { chords: null, lyrics: null };
-  // initialise a sequence of chords to remember
-  let remembered_chords: string[] = [];
 
   // loop over each line
   for (const line of split_lines(body)) {
     switch (get_linetype(line)) {
       case linetype_blank:
         break;
+
       case linetype_section:
         // if the current line has content, push it
         if (!is_line_blank(current_line)) {
@@ -112,20 +119,11 @@ export function parse_body(body: string): ISection[] {
 
         // start a new section
         current_section = { name: null, repeats: null, lines: [] };
-        current_section.name = parse_line_section(line);
-
-        // check if there is a section to remember
-        for (let remembered_section of body_parsed) {
-          if (remembered_section.name === current_section.name) {
-            for (let remembered_line of remembered_section.lines) {
-              for (let remembered_chord of remembered_line.chords) {
-                remembered_chords.push(remembered_chord);
-              }
-            }
-            break;
-          }
-        }
+        const parsed_section = parse_line_section(line);
+        current_section.name = parsed_section.name;
+        current_section.repeats = parsed_section.repeats;
         break;
+
       case linetype_chord:
         // if the current line has lyrics or chords, push it
         if (!is_line_blank(current_line)) {
@@ -138,20 +136,8 @@ export function parse_body(body: string): ISection[] {
         // replace the current line's chords
         current_line.chords = parse_line_chord(line);
         break;
-      case linetype_lyric:
-        // if there are no chords currently, try to remember chords
-        if (current_line.chords === null) {
-          current_line.chords = [];
-          for (let i = 0; i < current_line.lyrics.length - 1; i++) {
-            if (remembered_chords.length > 0) {
-              console.log(remembered_chords)
-              current_line.chords.push(remembered_chords.shift());
-            }
-          }
-          console.log("I rememebered these chords:")
-          console.log(current_line)
-        }
 
+      case linetype_lyric:
         // if the current line has lyrics, push it
         if (current_line.lyrics != null) {
           current_section.lines.push(current_line);
@@ -160,14 +146,16 @@ export function parse_body(body: string): ISection[] {
             lyrics: null,
           };
         }
-
         // replace the current line's lyrics
-        current_line.lyrics = parse_line_lyrics(line);
+        current_line.lyrics = parse_line_text(line);
 
         // temp check for equal number of chords in lyric line and chord line
         if (current_line.chords != null) {
           if (current_line.chords.length + 1 !== current_line.lyrics.length) {
-            console.warn("Different number of chords and lyrics on this line: " + current_line.lyrics.join(""));
+            console.warn(
+              "Different number of chords and lyrics on this line: " +
+                current_line.lyrics.join(""),
+            );
           }
         }
         // end of temp check
