@@ -13,8 +13,8 @@ function export_plaintext_line(line: ILine): string {
     let chords_out: string = " ".repeat(lyrics[0].length);
     for (let i = 1; i < lyrics.length; i++) {
       const n_spaces: number = Math.max(lyrics[i].length, chords[i - 1].length + 1);
-      lyrics_out = lyrics_out + lyrics[i].padEnd(n_spaces);
-      chords_out = chords_out + chords[i - 1].padEnd(n_spaces);
+      lyrics_out += lyrics[i].padEnd(n_spaces);
+      chords_out += chords[i - 1].padEnd(n_spaces);
     }
     out += chords_out + "\n" + lyrics_out + "\n";
   }
