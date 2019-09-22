@@ -11,6 +11,7 @@ import {
 } from "./file-io";
 import { parse_body, parse_header, separate_header } from "./parser";
 import { get_file_name, split_lines } from "./string-functions";
+import { transpose } from "./transpose";
 
 export interface IChordown {
   header: IHeader;
