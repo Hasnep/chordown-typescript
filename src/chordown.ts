@@ -92,7 +92,8 @@ const {
 for (let i = 0; i < input_file_paths.length; i++) {
   const input_file_path: string = input_file_paths[i];
   const input_text: string = read_file_smart(input_file_path);
-  const chordown_object: IChordown = chordown(input_text);
+  let chordown_object: IChordown = chordown(input_text);
+  chordown_object = transpose(chordown_object);
 
   // export
   const output_formats: string[] = Object.keys(chordown_config.output);
