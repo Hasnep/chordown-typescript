@@ -7,15 +7,15 @@ export interface IChord {
 }
 
 export function transpose(chordown_object: IChordown) {
-  let transpose_by: number;
-  if (!("transpose" in chordown_object.header)) {
-    transpose_by = 0;
-  } else if (typeof chordown_object.header.transpose === "string") {
-    const key_id_new: number = note_to_id(chordown_object.header.transpose);
-    const key_id_old: number = note_to_id(chordown_object.header.key);
-    transpose_by = key_id_new - key_id_old;
-  } else {
-    transpose_by = chordown_object.header.transpose;
+  let transpose_by: number = 0;
+  if ("transpose" in chordown_object.header) {
+    if (typeof chordown_object.header.transpose === "string") {
+      const key_id_new: number = note_to_id(chordown_object.header.transpose);
+      const key_id_old: number = note_to_id(chordown_object.header.key);
+      transpose_by = key_id_new - key_id_old;
+    } else if (typeof chordown_object.header.transpose === "number") {
+      transpose_by = chordown_object.header.transpose;
+    }
   }
 
   chordown_object.header.key = chord_to_string(
@@ -29,7 +29,9 @@ export function transpose(chordown_object: IChordown) {
     for (const line of section.lines) {
       if (line.chords != null) {
         line.chords = line.chords.map(function(chord: string): string {
-          return chord_to_string(transpose_chord(separate_chord(chord), transpose_by));
+          return chord_to_string(
+            transpose_chord(separate_chord(chord), transpose_by),
+          );
         });
       }
     }
@@ -58,7 +60,11 @@ export function separate_chord(chord: string): IChord {
     console.warn(`Unable to parse chord '${chord}'`);
     return { root: "", type: chord, bass: null };
   } else {
-    return { root: matches.groups.root, type: matches.groups.type, bass: matches.groups.bass };
+    return {
+      root: matches.groups.root,
+      type: matches.groups.type,
+      bass: matches.groups.bass,
+    };
   }
 }
 
@@ -91,12 +97,12 @@ function key_to_sharps(note: string): string[] {
 }
 
 const key_to_n_sharps = {
-  "C": 0,
-  "G": 1,
-  "D": 2,
-  "A": 3,
-  "E": 4,
-  "B": 5,
+  C: 0,
+  G: 1,
+  D: 2,
+  A: 3,
+  E: 4,
+  B: 5,
   "F#": 6,
   "C#": 7,
 };
@@ -104,31 +110,74 @@ const key_to_n_sharps = {
 const key_to_n_flats = { C: 0, F: 1, Bb: 2, Eb: 3, Ab: 4, Db: 5, Gb: 6, Cb: 7 };
 
 const note_to_id_mapping = {
-  "C": 0,
+  C: 0,
   "C#": 1,
-  "Db": 1,
-  "D": 2,
+  Db: 1,
+  D: 2,
   "D#": 3,
-  "Eb": 3,
-  "E": 4,
+  Eb: 3,
+  E: 4,
   "E#": 5,
-  "Fb": 4,
-  "F": 5,
+  Fb: 4,
+  F: 5,
   "F#": 6,
-  "Gb": 6,
-  "G": 7,
+  Gb: 6,
+  G: 7,
   "G#": 8,
-  "Ab": 8,
-  "A": 9,
+  Ab: 8,
+  A: 9,
   "A#": 10,
-  "Bb": 10,
-  "B": 11,
+  Bb: 10,
+  B: 11,
   "B#": 12,
-  "Cb": 11,
+  Cb: 11,
 };
 
-const id_to_note_mapping: { naturals: object; sharps: object; flats: object } = {
-  naturals: { 0: "C", 1: "C#", 2: "D", 3: "Eb", 4: "E", 5: "F", 6: "F#", 7: "G", 8: "G#", 9: "A", 10: "Bb", 11: "B" },
-  sharps: { 0: "C", 1: "C#", 2: "D", 3: "D#", 4: "E", 5: "F", 6: "F#", 7: "G", 8: "G#", 9: "A", 10: "A#", 11: "B" },
-  flats: { 0: "C", 1: "C#", 2: "D", 3: "Eb", 4: "E", 5: "F", 6: "F#", 7: "G", 8: "G#", 9: "A", 10: "Bb", 11: "B" },
+const id_to_note_mapping: {
+  naturals: object;
+  sharps: object;
+  flats: object;
+} = {
+  naturals: {
+    0: "C",
+    1: "C#",
+    2: "D",
+    3: "Eb",
+    4: "E",
+    5: "F",
+    6: "F#",
+    7: "G",
+    8: "G#",
+    9: "A",
+    10: "Bb",
+    11: "B",
+  },
+  sharps: {
+    0: "C",
+    1: "C#",
+    2: "D",
+    3: "D#",
+    4: "E",
+    5: "F",
+    6: "F#",
+    7: "G",
+    8: "G#",
+    9: "A",
+    10: "A#",
+    11: "B",
+  },
+  flats: {
+    0: "C",
+    1: "C#",
+    2: "D",
+    3: "Eb",
+    4: "E",
+    5: "F",
+    6: "F#",
+    7: "G",
+    8: "G#",
+    9: "A",
+    10: "Bb",
+    11: "B",
+  },
 };
