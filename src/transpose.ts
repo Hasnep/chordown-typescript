@@ -10,7 +10,7 @@ export function transpose(chordown_object: IChordown) {
   let transpose_by: number;
   if (!("transpose" in chordown_object.header)) {
     transpose_by = 0;
-  } else if (typeof chordown_object.header.transpose == "string") {
+  } else if (typeof chordown_object.header.transpose === "string") {
     const key_id_new: number = note_to_id(chordown_object.header.transpose);
     const key_id_old: number = note_to_id(chordown_object.header.key);
     transpose_by = key_id_new - key_id_old;
@@ -38,7 +38,7 @@ export function transpose_chord(chord: IChord, transpose_by: number): IChord {
   const chord_root_id_new: number = (chord_root_id_old + transpose_by) % 12;
   chord.root = id_to_note(chord_root_id_new);
 
-  if (chord.bass != undefined) {
+  if (chord.bass !== undefined) {
     const chord_bass_id_old: number = note_to_id(chord.bass);
     const chord_bass_id_new: number = (chord_bass_id_old + transpose_by) % 12;
     chord.bass = id_to_note(chord_bass_id_new);
@@ -71,7 +71,7 @@ export function id_to_note(id: number): string {
 
 function chord_to_string(chord: IChord): string {
   let chord_string = chord.root + chord.type;
-  if (chord.bass != undefined) {
+  if (chord.bass !== undefined) {
     chord_string += "/" + chord.bass;
   }
   return chord_string;
