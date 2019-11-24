@@ -1,6 +1,6 @@
 import { IChordown } from "./chordown";
 
-interface IChord {
+export interface IChord {
   root: string;
   type: string;
   bass: string;

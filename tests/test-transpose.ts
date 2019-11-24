@@ -1,23 +1,53 @@
 import { assert } from "chai";
 import "mocha";
-import { separate_chord, transpose_chord } from "../src/transpose";
+import { IChord, separate_chord, transpose_chord } from "../src/transpose";
 
 describe("separate_chord", function() {
   it("separates a simple chord", function() {
-    assert.deepEqual(separate_chord("C"), { root: "C", type: "", bass: undefined });
+    const expected_output: IChord = {
+      root: "C",
+      type: "",
+      bass: undefined,
+    };
+    assert.deepEqual(separate_chord("C"), expected_output);
   });
 
   it("separates a complex chord", function() {
-    assert.deepEqual(separate_chord("Bbmaj7/9"), { root: "Bb", type: "maj7/9", bass: undefined });
+    const expected_output: IChord = {
+      root: "Bb",
+      type: "maj7/9",
+      bass: undefined,
+    };
+    assert.deepEqual(separate_chord("Bbmaj7/9"), expected_output);
   });
 });
 
 describe("transpose_chord", function() {
   it("transposes a simple chord", function() {
-    assert.deepEqual(transpose_chord(separate_chord("C"), 1), { root: "C#", type: "", bass: undefined });
+    const chord_input: IChord = {
+      root: "C",
+      type: "",
+      bass: undefined,
+    };
+    const expected_output: IChord = {
+      root: "C#",
+      type: "",
+      bass: undefined,
+    };
+    assert.deepEqual(transpose_chord(chord_input, 1), expected_output);
   });
 
   it("transposes a complex chord", function() {
-    assert.deepEqual(transpose_chord(separate_chord("Bbmaj7/9"), -2), { root: "G#", type: "maj7/9", bass: undefined });
+    const chord_input: IChord = {
+      root: "Bb",
+      type: "maj7/9",
+      bass: undefined,
+    };
+    const expected_output: IChord = {
+      root: "G#",
+      type: "maj7/9",
+      bass: undefined,
+    };
+    assert.deepEqual(transpose_chord(chord_input, -2), expected_output);
   });
 });
