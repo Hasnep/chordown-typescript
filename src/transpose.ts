@@ -18,7 +18,12 @@ export function transpose(chordown_object: IChordown) {
     transpose_by = chordown_object.header.transpose;
   }
 
-  chordown_object.header.key = chord_to_string(transpose_chord({root: chordown_object.header.key,type:"",bass:undefined}, transpose_by);
+  chordown_object.header.key = chord_to_string(
+    transpose_chord(
+      { root: chordown_object.header.key, type: "", bass: undefined },
+      transpose_by,
+    ),
+  );
 
   for (const section of chordown_object.body) {
     for (const line of section.lines) {
