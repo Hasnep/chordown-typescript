@@ -7,7 +7,7 @@ describe("separate_chord", function() {
     assert.deepEqual(separate_chord("C"), { root: "C", type: "", bass: undefined });
   });
 
-  it("separates a simple chord", function() {
+  it("separates a complex chord", function() {
     assert.deepEqual(separate_chord("Bbmaj7/9"), { root: "Bb", type: "maj7/9", bass: undefined });
   });
 });
