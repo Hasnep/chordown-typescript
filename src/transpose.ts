@@ -88,27 +88,6 @@ function chord_to_string(chord: IChord): string {
   return chord_string;
 }
 
-const major_scale_ids: number[] = [0, 2, 4, 5, 7, 9, 11];
-
-const order_of_sharps: string[] = ["F", "C", "G", "D", "A", "E", "B"];
-
-function key_to_sharps(note: string): string[] {
-  return order_of_sharps.slice(0);
-}
-
-const key_to_n_sharps = {
-  C: 0,
-  G: 1,
-  D: 2,
-  A: 3,
-  E: 4,
-  B: 5,
-  "F#": 6,
-  "C#": 7,
-};
-
-const key_to_n_flats = { C: 0, F: 1, Bb: 2, Eb: 3, Ab: 4, Db: 5, Gb: 6, Cb: 7 };
-
 const note_to_id_mapping = {
   C: 0,
   "C#": 1,
