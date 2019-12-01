@@ -80,8 +80,12 @@ export function note_to_id(note: string): number {
   }
 }
 
-export function id_to_note(id: number): string {
-  return id_to_note_mapping.naturals[id];
+export function id_to_note(id: number, key: IChord): string {
+  if (key_to_sharps_or_flats(key) == "#") {
+    return id_to_note_mapping.sharps[id];
+  } else {
+    return id_to_note_mapping.flats[id];
+  }
 }
 
 function chord_to_string(chord: IChord): string {
