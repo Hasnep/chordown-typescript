@@ -47,12 +47,12 @@ export function transpose_chord(
 ): IChord {
   const chord_root_id_old: number = note_to_id(chord.root);
   const chord_root_id_new: number = (chord_root_id_old + transpose_by) % 12;
-  chord.root = id_to_note(chord_root_id_new);
+  chord.root = id_to_note(chord_root_id_new, key);
 
   if (chord.bass !== undefined) {
     const chord_bass_id_old: number = note_to_id(chord.bass);
     const chord_bass_id_new: number = (chord_bass_id_old + transpose_by) % 12;
-    chord.bass = id_to_note(chord_bass_id_new);
+    chord.bass = id_to_note(chord_bass_id_new, key);
   }
   return chord;
 }
