@@ -201,3 +201,14 @@ export function count_accidentals(
     return n_accidentals;
   }
 }
+
+function key_to_sharps_or_flats(key: IChord): string {
+  const n_sharps = count_accidentals(key, "#");
+  const n_flats = count_accidentals(key, "b");
+
+  if (n_sharps <= n_flats) {
+    return "#";
+  } else {
+    return "b";
+  }
+}
