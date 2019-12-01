@@ -181,3 +181,38 @@ const id_to_note_mapping: {
     11: "B",
   },
 };
+
+export function count_accidentals(
+  key: IChord,
+  accidental_type: string,
+): number {
+  const key_id: number = note_to_id(key.root);
+
+  let n_accidentals: number;
+  if (key.type === "m" || key.type === "minor") {
+    n_accidentals = -3;
+  } else {
+    n_accidentals = 0;
+  }
+
+  let step_by: number;
+  if (accidental_type === "#") {
+    step_by = 7;
+  } else if (accidental_type === "b") {
+    step_by = 5;
+  } else {
+    console.error("wrong arg");
+  }
+
+  let check_id: number = 0;
+  while (check_id !== key_id) {
+    check_id = (check_id + step_by) % 12;
+    n_accidentals += 1;
+  }
+
+  if (n_accidentals < 0) {
+    return n_accidentals + 12;
+  } else {
+    return n_accidentals;
+  }
+}
