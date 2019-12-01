@@ -3,7 +3,7 @@ import { IChordown } from "./chordown";
 export interface IChord {
   root: string;
   type: string;
-  bass: string;
+  bass?: string;
 }
 
 export function transpose(chordown_object: IChordown) {
