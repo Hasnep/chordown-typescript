@@ -134,24 +134,9 @@ const note_to_id_mapping = {
 };
 
 const id_to_note_mapping: {
-  naturals: object;
   sharps: object;
   flats: object;
 } = {
-  naturals: {
-    0: "C",
-    1: "C#",
-    2: "D",
-    3: "Eb",
-    4: "E",
-    5: "F",
-    6: "F#",
-    7: "G",
-    8: "G#",
-    9: "A",
-    10: "Bb",
-    11: "B",
-  },
   sharps: {
     0: "C",
     1: "C#",
@@ -168,14 +153,14 @@ const id_to_note_mapping: {
   },
   flats: {
     0: "C",
-    1: "C#",
+    1: "Db",
     2: "D",
     3: "Eb",
     4: "E",
     5: "F",
-    6: "F#",
+    6: "Gb",
     7: "G",
-    8: "G#",
+    8: "Ab",
     9: "A",
     10: "Bb",
     11: "B",
