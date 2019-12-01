@@ -40,7 +40,11 @@ export function transpose(chordown_object: IChordown) {
   return chordown_object;
 }
 
-export function transpose_chord(chord: IChord, transpose_by: number): IChord {
+export function transpose_chord(
+  chord: IChord,
+  transpose_by: number,
+  key: IChord = null,
+): IChord {
   const chord_root_id_old: number = note_to_id(chord.root);
   const chord_root_id_new: number = (chord_root_id_old + transpose_by) % 12;
   chord.root = id_to_note(chord_root_id_new);
