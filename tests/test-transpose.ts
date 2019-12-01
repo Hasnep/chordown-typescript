@@ -1,6 +1,11 @@
 import { assert } from "chai";
 import "mocha";
-import { IChord, separate_chord, transpose_chord } from "../src/transpose";
+import {
+  IChord,
+  separate_chord,
+  transpose_chord,
+  count_accidentals,
+} from "../src/transpose";
 
 describe("separate_chord", function() {
   it("separates a simple chord", function() {
@@ -72,5 +77,99 @@ describe("transpose_chord", function() {
       bass: "E",
     };
     assert.deepEqual(transpose_chord(chord_input, -2), expected_output);
+  });
+});
+
+describe("count_accidentals", function() {
+  it("counts the number of sharps in major keys", function() {
+    const test_input: string[] = [
+      "Gb",
+      "Db",
+      "Ab",
+      "Eb",
+      "Bb",
+      "F",
+      "C",
+      "G",
+      "D",
+      "A",
+      "E",
+      "B",
+      "F#",
+    ];
+    const expected_output: number[] = [6, 7, 8, 9, 10, 11, 0, 1, 2, 3, 4, 5, 6];
+    const test_output: number[] = test_input.map((x) =>
+      count_accidentals({ root: x, type: "" }, "#"),
+    );
+    assert.deepEqual(test_output, expected_output);
+  });
+
+  it("counts the number of sharps in minor keys", function() {
+    const test_input: string[] = [
+      "Eb",
+      "Bb",
+      "F",
+      "C",
+      "G",
+      "D",
+      "A",
+      "E",
+      "B",
+      "F#",
+      "C#",
+      "G#",
+      "D#",
+    ];
+    const expected_output: number[] = [6, 7, 8, 9, 10, 11, 0, 1, 2, 3, 4, 5, 6];
+    const test_output: number[] = test_input.map((x) =>
+      count_accidentals({ root: x, type: "minor" }, "#"),
+    );
+    assert.deepEqual(test_output, expected_output);
+  });
+
+  it("counts the number of flats in major keys", function() {
+    const test_input: string[] = [
+      "Gb",
+      "Db",
+      "Ab",
+      "Eb",
+      "Bb",
+      "F",
+      "C",
+      "G",
+      "D",
+      "A",
+      "E",
+      "B",
+      "F#",
+    ];
+    const expected_output: number[] = [6, 5, 4, 3, 2, 1, 0, 11, 10, 9, 8, 7, 6];
+    const test_output: number[] = test_input.map((x) =>
+      count_accidentals({ root: x, type: "" }, "b"),
+    );
+    assert.deepEqual(test_output, expected_output);
+  });
+
+  it("counts the number of flats in minor keys", function() {
+    const test_input: string[] = [
+      "Eb",
+      "Bb",
+      "F",
+      "C",
+      "G",
+      "D",
+      "A",
+      "E",
+      "B",
+      "F#",
+      "C#",
+      "G#",
+      "D#",
+    ];
+    const expected_output: number[] = [6, 5, 4, 3, 2, 1, 0, 11, 10, 9, 8, 7, 6];
+    const test_output: number[] = test_input.map((x) =>
+      count_accidentals({ root: x, type: "minor" }, "b"),
+    );
+    assert.deepEqual(test_output, expected_output);
   });
 });
