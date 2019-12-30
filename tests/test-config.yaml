@@ -3,6 +3,6 @@ input: ccc/
 output:
   json:
     path: ddd/
-  tex: 
+  tex:
     path: eee/
     compile: "xelatex"
