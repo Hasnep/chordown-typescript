@@ -33,7 +33,5 @@
   "author": "Hannes Smit",
   "license": "GPL-3.0-or-later",
   "private": true,
-  "bin": {
-    "chordown": "./dist/src/chordown.js"
-  }
+  "bin": "dist/src/cli.js"
 }

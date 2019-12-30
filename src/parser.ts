@@ -1,4 +1,4 @@
-import { IHeader, ILine, ISection } from "./chordown";
+import { IHeader, ILine, ISection } from "./interfaces";
 import { read_yaml_smart } from "./file-io";
 import {
   get_linetype,
