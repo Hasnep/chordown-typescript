@@ -1,4 +1,4 @@
-import { IChordown, ILine } from "../chordown";
+import { IChordown, ILine } from "../interfaces";
 
 function export_onsong_line(line: ILine): string {
   let { chords, lyrics } = line;

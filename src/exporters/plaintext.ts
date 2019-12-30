@@ -1,4 +1,4 @@
-import { IChordown, ILine } from "../chordown";
+import { IChordown, ILine } from "../interfaces";
 import { to_sentence_case } from "../string-functions";
 
 function export_plaintext_line(line: ILine): string {
