@@ -1,6 +1,5 @@
 import { IChordown, ILine } from "../interfaces";
 import { IConfig } from "../config";
-import { read_file_smart } from "../file-io";
 
 const preamble: string = `
 \\documentclass[12pt]{article}
