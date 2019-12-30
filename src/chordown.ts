@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import { IChordown } from "./interfaces";
 
 import { parse_body, parse_header, separate_header } from "./parser";
