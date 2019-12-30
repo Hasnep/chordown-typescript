@@ -1,11 +1,4 @@
-import {
-  mkdirSync,
-  readdirSync,
-  readFileSync,
-  removeSync,
-  statSync,
-  writeFileSync,
-} from "fs-extra";
+import { mkdirSync, readdirSync, readFileSync, removeSync, statSync, writeFileSync } from "fs-extra";
 import * as yaml from "js-yaml";
 import { get_file_path } from "./string-functions";
 
