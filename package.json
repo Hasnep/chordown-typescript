@@ -17,17 +17,17 @@
     "@types/mocha": "^5.2.6",
     "@types/node": "^12.0.2",
     "chai": "^4.2.0",
+    "eslint": "^6.8.0",
     "mocha": "^6.1.4",
     "nyc": "^14.1.1",
     "ts-node": "^8.2.0",
-    "tslint": "^5.17.0",
     "typescript": "^3.4.5"
   },
   "scripts": {
     "test": "mocha -r ts-node/register tests/**/*.ts",
-    "lint": "tslint --config tslint.json --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
-    "fix": "tslint --fix --config tslint.json --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
+    "lint": "eslint src/**/*.ts src/*.ts tests/**/*.ts tests/*.ts",
     "build": "tsc -p tsconfig.json",
+    "watch": "tsc -p tsconfig.json --watch",
     "start": "node dist/src/chordown.js"
   },
   "author": "Hannes Smit",
