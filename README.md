@@ -45,10 +45,10 @@ key: C
 
 ## Chordown config files
 
-To convert the input chordown files to another format, a YAML config file is used to specify the arguments.
+To convert the input chordown files to another format, a TOML config file is used to specify the arguments.
 
-- `base`
 - `input`
+  - `path`
 - `output`
   - `json`
     - `path`
@@ -57,26 +57,32 @@ To convert the input chordown files to another format, a YAML config file is use
   - `tex`
     - `path`
     - `compile` - the argument to run when compiling the `.tex` files
+    - `template` - the path to the tex template file
   - `onsong`
     - `path`
+
+If the config file is specified as a commandline argument, the arguments will override the global config file at `~/.config/chordown/config.toml`.
 
 ### Example config file
 
 An example config file might look like
 
 ```
-base: /mnt/c/Users/Hannes/OneDrive/Documents/Chords/
-input: chordown/
-output:
-  json:
-    path: output/chordown-json/
-  txt:
-    path: output/plaintext/
-  tex:
-    path: output/tex/
-    compile: "latexmk -xelatex -interaction=nonstopmode"
-  onsong:
-    path: output/onsong/
+[input]
+path = "~/chords/input/**/*.cd"
+
+[output.json]
+path = "~/chords/output/chordown-json/"
+
+[output.txt]
+path = "~/chords/output/plaintext/"
+
+[output.tex]
+path = "~/chords/output/latex/"
+compile = "xelatex"
+
+[output.onsong]
+path = "~/chords/output/onsong/"
 ```
 
 ## Commands
