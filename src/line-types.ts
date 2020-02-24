@@ -7,19 +7,19 @@ export const linetype_chord = 2;
 export const linetype_section = 3;
 
 // checking line types
-export function is_linetype_blank(line: string): boolean {
+export const is_linetype_blank = (line: string): boolean => {
   return first_character(line.trim()) === "";
-}
+};
 
-export function is_linetype_chord(line: string): boolean {
+export const is_linetype_chord = (line: string): boolean => {
   return first_character(line.trim()) === ":";
-}
+};
 
-export function is_linetype_section(line: string): boolean {
+export const is_linetype_section = (line: string): boolean => {
   return first_character(line.trim()) === "#";
-}
+};
 
-export function get_linetype(line: string): number {
+export const get_linetype = (line: string): number => {
   if (is_linetype_blank(line)) {
     return linetype_blank;
   } else if (is_linetype_chord(line)) {
@@ -29,4 +29,4 @@ export function get_linetype(line: string): number {
   } else {
     return linetype_lyric;
   }
-}
+};

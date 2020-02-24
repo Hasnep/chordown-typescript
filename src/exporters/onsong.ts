@@ -1,6 +1,6 @@
 import { IChordown, ILine } from "../interfaces";
 
-function export_onsong_line(line: ILine): string {
+export const export_onsong_line = (line: ILine): string => {
   let { chords, lyrics } = line;
   let out = "";
   if (chords == null) {
@@ -17,9 +17,9 @@ function export_onsong_line(line: ILine): string {
     }
   }
   return out;
-}
+};
 
-export function export_onsong(chordown: IChordown): string {
+export const export_onsong = (chordown: IChordown): string => {
   let out = "";
 
   out += chordown.header.title;
@@ -51,4 +51,4 @@ export function export_onsong(chordown: IChordown): string {
     out += "\n";
   }
   return out;
-}
+};

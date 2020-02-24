@@ -9,9 +9,9 @@ import {
 } from "./line-types";
 import { split_lines, to_sentence_case } from "./string-functions";
 
-export function separate_header(
+export const separate_header = (
   lines: string[]
-): { header: string[]; body: string[] } {
+): { header: string[]; body: string[] } => {
   // given a list of lines, finds the header and splits into header and body
 
   // skip blank lines
@@ -40,10 +40,10 @@ export function separate_header(
     console.warn("Did not contain a header.");
     return { header: null, body: lines };
   }
-}
+};
 
 // parsing lines
-export function parse_header(header_text: string): IHeader {
+export const parse_header = (header_text: string): IHeader => {
   // todo: consider making this more smart at the cost of readability
   // if there is no header then fill in a header
   if (header_text == null || header_text === "") {
@@ -54,9 +54,9 @@ export function parse_header(header_text: string): IHeader {
     header = Object.assign(header, read_toml_smart(header_text));
     return header;
   }
-}
+};
 
-export function parse_line_chord(line: string): string[] {
+export const parse_line_chord = (line: string): string[] => {
   const line_splitted: string[] = line
     .trim()
     .slice(1)
@@ -67,15 +67,15 @@ export function parse_line_chord(line: string): string[] {
   } else {
     return line_splitted;
   }
-}
+};
 
-export function parse_line_text(line: string): string[] {
+export const parse_line_text = (line: string): string[] => {
   return line.replace(/\s+/, " ").split("^");
-}
+};
 
-export function parse_line_section(
+export const parse_line_section = (
   line: string
-): { name: string; repeats: number } {
+): { name: string; repeats: number } => {
   const repeat_regex = /\(?x(\d+)\)?/;
   const repeats_match = line.match(repeat_regex);
   let n_repeats: number = null;
@@ -89,9 +89,9 @@ export function parse_line_section(
     .trim();
   line = to_sentence_case(line);
   return { name: line, repeats: n_repeats };
-}
+};
 
-export function parse_body(body: string): ISection[] {
+export const parse_body = (body: string): ISection[] => {
   const body_parsed: ISection[] = []; // initialise output object
 
   // initialise a blank section
@@ -171,12 +171,12 @@ export function parse_body(body: string): ISection[] {
     body_parsed.push(current_section);
   }
   return body_parsed;
-}
+};
 
-export function is_line_blank(line: ILine): boolean {
+export const is_line_blank = (line: ILine): boolean => {
   return line.chords == null && line.lyrics == null;
-}
+};
 
-export function is_section_blank(section: ISection): boolean {
+export const is_section_blank = (section: ISection): boolean => {
   return section.lines.length === 0;
-}
+};

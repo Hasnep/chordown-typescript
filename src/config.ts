@@ -7,9 +7,9 @@ import {
 } from "./file-io";
 import { get_file_name } from "./string-functions";
 
-export function get_commandline_arg(): string {
+export const get_commandline_arg = (): string => {
   return yargs.argv._[0];
-}
+};
 
 export interface IConfig {
   input: IConfigInput;
@@ -36,7 +36,7 @@ export interface ITeXConfigOutput {
   compile?: string;
 }
 
-export function read_config_file(config_path: string): IConfig {
+export const read_config_file = (config_path: string): IConfig => {
   const config_string: string = read_file_smart(config_path);
   let chordown_config: IConfig = { input: { path: "" }, output: {} };
   chordown_config = Object.assign(
@@ -52,11 +52,11 @@ export function read_config_file(config_path: string): IConfig {
     );
   }
   return chordown_config;
-}
+};
 
-export function config_to_file_paths(
+export const config_to_file_paths = (
   config: IConfig
-): { input: string[]; output: any } {
+): { input: string[]; output: any } => {
   const input_folder_path: string = path.join(config.input.path);
   let input_file_paths: string[];
   try {
@@ -82,4 +82,4 @@ export function config_to_file_paths(
     );
   }
   return { input: input_file_paths, output: output_file_paths };
-}
+};

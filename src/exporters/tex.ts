@@ -53,7 +53,7 @@ const preamble = `
 % \\renewcommand\\versejustify{\\justifyright}
 `;
 
-function export_tex_line(line: ILine): string {
+const export_tex_line = (line: ILine): string => {
   let { chords, lyrics } = line;
 
   // escape special TeX characters
@@ -83,9 +83,9 @@ function export_tex_line(line: ILine): string {
     }
   }
   return out;
-}
+};
 
-export function export_tex(chordown: IChordown, config: IConfig): string {
+export const export_tex = (chordown: IChordown, config: IConfig): string => {
   let out: string = preamble;
 
   for (const [key, value] of Object.entries(chordown.header)) {
@@ -142,12 +142,12 @@ export function export_tex(chordown: IChordown, config: IConfig): string {
     out += "\\endverse\n";
   }
   return out + "\\endsong\n\\end{songs}\n\\end{document}\n";
-}
+};
 
-export function escape_tex(s: string): string {
+export const escape_tex = (s: string): string => {
   if (s != null) {
     return s.toString().replace("&", "\\&");
   } else {
     return null;
   }
-}
+};

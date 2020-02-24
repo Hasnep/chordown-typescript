@@ -1,7 +1,7 @@
 import { IChordown, ILine } from "../interfaces";
 import { to_sentence_case } from "../string-functions";
 
-function export_plaintext_line(line: ILine): string {
+const export_plaintext_line = (line: ILine): string => {
   const { chords, lyrics } = line;
   let out = "";
   if (chords == null) {
@@ -22,9 +22,9 @@ function export_plaintext_line(line: ILine): string {
     out += chords_out + "\n" + lyrics_out + "\n";
   }
   return out;
-}
+};
 
-export function export_plaintext(chordown: IChordown): string {
+export const export_plaintext = (chordown: IChordown): string => {
   let out = "";
   if (
     !(
@@ -56,4 +56,4 @@ export function export_plaintext(chordown: IChordown): string {
     out += "\n";
   }
   return out;
-}
+};
