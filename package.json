@@ -18,6 +18,7 @@
     "@types/mocha": "^5.2.7",
     "@types/node": "^12.12.28",
     "chai": "^4.2.0",
+
     "codecov": "^3.6.5",
     "cross-env": "^7.0.0",
     "istanbul": "^0.4.5",
@@ -26,13 +27,13 @@
     "source-map-support": "^0.5.16",
     "ts-node": "^8.6.2",
     "tslint": "^5.17.0",
+    "eslint": "^6.8.0",
     "typescript": "^3.4.5"
   },
   "scripts": {
     "test": "mocha -r ts-node/register tests/**/*.ts",
     "coverage": "nyc npm run test",
-    "lint": "tslint --config tslint.json --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
-    "fix": "tslint --fix --config tslint.json --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
+    "lint": "eslint src/**/*.ts src/*.ts tests/**/*.ts tests/*.ts",
     "build": "tsc -p tsconfig.json",
     "watch": "tsc -p tsconfig.json --watch",
     "start": "node dist/src/chordown.js"

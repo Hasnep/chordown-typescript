@@ -49,9 +49,3 @@ TempDir/*
 
 # Typescript files
 types
-
-# VS Code files
-.vscode
-
-# Default chordown config
-cdconfig.yaml
