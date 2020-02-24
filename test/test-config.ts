@@ -2,8 +2,8 @@ import { assert } from "chai";
 import "mocha";
 import { IConfig, read_config_file } from "../src/config";
 
-describe("read_config_file", function() {
-  it("reads a config file", function() {
+describe("read_config_file", () => {
+  it("reads a config file", () => {
     const expected_config: IConfig = {
       input: {
         path: "input/folder/**/*.cd"
