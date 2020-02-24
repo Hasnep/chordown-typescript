@@ -4,7 +4,7 @@
   "description": "markdown based chordsheets",
   "main": "dist/src/chordown.js",
   "directories": {
-    "test": "tests"
+    "test": "test"
   },
   "dependencies": {
     "fs-extra": "^8.0.1",
