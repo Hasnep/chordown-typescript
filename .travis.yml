@@ -7,7 +7,7 @@ install:
   - npm install
 
 after_success:
-  - npm coverage
+  - npm run coverage
 
 cache:
   directories:
