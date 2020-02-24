@@ -6,7 +6,7 @@ import {
   parse_body,
   parse_line_chord,
   parse_line_section,
-  separate_header,
+  separate_header
 } from "../src/parser";
 
 describe("separate_header", function() {
@@ -14,7 +14,7 @@ describe("separate_header", function() {
     const lines = ["---", "title: aaa", "artist: bbb", "---", "body1", "body2"];
     const expected_output = {
       header: ["title: aaa", "artist: bbb"],
-      body: ["body1", "body2"],
+      body: ["body1", "body2"]
     };
     assert.deepEqual(separate_header(lines), expected_output);
   });
@@ -35,7 +35,7 @@ describe("separate_header", function() {
     const lines = ["", "---", "title: aaa", "---", "body1", "body2"];
     const expected_output = {
       header: ["title: aaa"],
-      body: ["body1", "body2"],
+      body: ["body1", "body2"]
     };
     assert.deepEqual(separate_header(lines), expected_output);
   });
@@ -59,28 +59,28 @@ describe("parse_line_section", function() {
   it("parses a section line", function() {
     assert.deepEqual(parse_line_section("# Verse"), {
       name: "Verse",
-      repeats: null,
+      repeats: null
     });
   });
 
   it("capitalises section names", function() {
     assert.deepEqual(parse_line_section("# verse"), {
       name: "Verse",
-      repeats: null,
+      repeats: null
     });
   });
 
   it("parses a section line with a repeat", function() {
     assert.deepEqual(parse_line_section("# Verse x2"), {
       name: "Verse",
-      repeats: 2,
+      repeats: 2
     });
   });
 
   it("parses a section line with a repeat in brackets", function() {
     assert.deepEqual(parse_line_section("# Verse (x6)"), {
       name: "Verse",
-      repeats: 6,
+      repeats: 6
     });
   });
 });
@@ -95,14 +95,14 @@ describe("parse_body", function() {
         repeats: null,
         lines: [
           { chords: ["C", "Dm"], lyrics: ["lyrics ", "more ", " lyrics"] },
-          { chords: null, lyrics: ["lyrics and stuff"] },
-        ],
+          { chords: null, lyrics: ["lyrics and stuff"] }
+        ]
       },
       {
         name: "New section",
         repeats: null,
-        lines: [{ chords: null, lyrics: ["lyrics and stuff"] }],
-      },
+        lines: [{ chords: null, lyrics: ["lyrics and stuff"] }]
+      }
     ];
 
     const parsed_body = parse_body(example_body);
@@ -115,8 +115,8 @@ describe("is_line_blank", function() {
     assert.isTrue(
       is_line_blank({
         chords: null,
-        lyrics: null,
-      }),
+        lyrics: null
+      })
     );
   });
 
@@ -124,8 +124,8 @@ describe("is_line_blank", function() {
     assert.isFalse(
       is_line_blank({
         chords: ["C"],
-        lyrics: null,
-      }),
+        lyrics: null
+      })
     );
   });
 
@@ -133,8 +133,8 @@ describe("is_line_blank", function() {
     assert.isFalse(
       is_line_blank({
         chords: null,
-        lyrics: ["lyric"],
-      }),
+        lyrics: ["lyric"]
+      })
     );
   });
 });
@@ -145,8 +145,8 @@ describe("is_section_blank", function() {
       is_section_blank({
         name: null,
         repeats: null,
-        lines: [],
-      }),
+        lines: []
+      })
     );
   });
 
@@ -155,8 +155,8 @@ describe("is_section_blank", function() {
       is_section_blank({
         name: "test",
         repeats: null,
-        lines: [],
-      }),
+        lines: []
+      })
     );
   });
 
@@ -165,8 +165,8 @@ describe("is_section_blank", function() {
       is_section_blank({
         name: null,
         repeats: null,
-        lines: [{ chords: ["x", "y"], lyrics: ["C"] }],
-      }),
+        lines: [{ chords: ["x", "y"], lyrics: ["C"] }]
+      })
     );
   });
 });

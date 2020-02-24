@@ -8,7 +8,7 @@ import {
   linetype_blank,
   linetype_chord,
   linetype_section,
-  linetype_lyric,
+  linetype_lyric
 } from "../src/line-types";
 
 describe("is_line_blank", function() {
