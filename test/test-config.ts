@@ -13,7 +13,7 @@ describe("read_config_file", function() {
       },
     };
     assert.deepEqual(
-      read_config_file("tests/test-config.yaml"),
+      read_config_file("test/test-config.yaml"),
       expected_config,
     );
   });
