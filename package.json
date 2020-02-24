@@ -25,8 +25,7 @@
   },
   "scripts": {
     "test": "mocha -r ts-node/register tests/**/*.ts",
-    "lint": "tslint --config tslint.json --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
-    "fix": "tslint --fix --config tslint.json --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
+    "lint": "eslint src/**/*.ts src/*.ts tests/**/*.ts tests/*.ts",
     "build": "tsc -p tsconfig.json",
     "watch": "tsc -p tsconfig.json --watch",
     "start": "node dist/src/chordown.js"
