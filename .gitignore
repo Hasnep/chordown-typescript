@@ -18,6 +18,7 @@ public/css/main.css
 
 # Coverage reports
 coverage
+.nyc_output
 
 # API keys and secrets
 .env
@@ -48,9 +49,3 @@ TempDir/*
 
 # Typescript files
 types
-
-# VS Code files
-.vscode
-
-# Default chordown config
-cdconfig.yaml
