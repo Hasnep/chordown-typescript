@@ -1,5 +1,5 @@
 import { IHeader, ILine, ISection } from "./interfaces";
-import { read_yaml_smart } from "./file-io";
+import { read_toml_smart } from "./file-io";
 import {
   get_linetype,
   linetype_blank,
@@ -51,7 +51,7 @@ export function parse_header(header_text: string): IHeader {
   } else {
     header_text = header_text.replace(/(^.*?):(?=\S)/gm, "$1: "); // fix bad yaml
     let header: IHeader = { title: "" };
-    header = Object.assign(header, read_yaml_smart(header_text));
+    header = Object.assign(header, read_toml_smart(header_text));
     return header;
   }
 }

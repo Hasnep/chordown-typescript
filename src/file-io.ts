@@ -4,9 +4,9 @@ import {
   readFileSync,
   removeSync,
   statSync,
-  writeFileSync,
+  writeFileSync
 } from "fs-extra";
-import * as yaml from "js-yaml";
+import * as toml from "toml";
 import { get_file_path } from "./string-functions";
 
 export function read_file_smart(filepath: string): string {
@@ -31,10 +31,15 @@ export function write_file_smart(text: string, filename: string): void {
   }
 }
 
-export function read_yaml_smart(str: string): object {
-  // parses a string as YAML with some helping functions to fix syntax mistakes
-  str = str.replace(/(^.*?):(?=\S)/gm, "$1: "); // add a space after a colon if needed
-  return yaml.safeLoad(str);
+// parses a string as TOML with some helping functions to fix syntax mistakes
+export function read_toml_smart(str: string): object {
+  try {
+    return toml.parse(str);
+  } catch (e) {
+    console.error(
+      `Parsing error on line ${e.line}, column ${e.column}: ${e.message}`
+    );
+  }
 }
 
 export function path_to_list_of_files(folder_path: string): string[] {

@@ -1,0 +1,9 @@
+[input]
+path = "input/folder/**/*.cd"
+
+[output.json]
+path = "output/json"
+
+[output.tex]
+path = "output/tex"
+compile = "latex"

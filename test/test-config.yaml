@@ -1,8 +1,0 @@
-base: ~/aaa/bbb/
-input: ccc/
-output:
-  json:
-    path: ddd/
-  tex:
-    path: eee/
-    compile: "xelatex"

@@ -1,0 +1,14 @@
+input = "~/chords/input/"
+
+[output.json]
+path = "~/chords/output/chordown-json/"
+
+[output.txt]
+path = "~/chords/output/plaintext/"
+
+[output.tex]
+path = "~/chords/output/latex/"
+compile = "xelatex"
+
+[output.onsong]
+path = "~/chords/output/onsong/"
