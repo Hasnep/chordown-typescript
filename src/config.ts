@@ -71,8 +71,8 @@ export function config_to_file_paths(
     path.join(input_folder_path, file_path)
   );
 
-  let file_names = input_file_paths.map((path) => get_file_name(path));
-  let output_file_paths = {};
+  const file_names = input_file_paths.map((path) => get_file_name(path));
+  const output_file_paths = {};
   for (const output_format of Object.keys(config.output)) {
     output_file_paths[output_format] = file_names.map((file_name) =>
       path.join(

@@ -6,7 +6,7 @@ import {
   config_to_file_paths,
   get_commandline_arg,
   IConfig,
-  read_config_file,
+  read_config_file
 } from "./config";
 import { export_onsong } from "./exporters/onsong";
 import { export_plaintext } from "./exporters/plaintext";
@@ -18,7 +18,7 @@ const config_path = get_commandline_arg();
 const chordown_config: IConfig = read_config_file(config_path);
 const {
   input: input_file_paths,
-  output: output_file_paths,
+  output: output_file_paths
 } = config_to_file_paths(chordown_config);
 
 for (let i = 0; i < input_file_paths.length; i++) {
@@ -48,11 +48,11 @@ for (let i = 0; i < input_file_paths.length; i++) {
     const output_file_path: string = output_file_paths.tex[i];
     write_file_smart(
       export_tex(chordown_object, chordown_config),
-      output_file_path,
+      output_file_path
     );
     if (Object.keys(chordown_config.output.tex).includes("compile")) {
       const latex_compiler: string = chordown_config.output.tex.compile;
-      const latex_compile_command: string = `cd ${chordown_config.base}${chordown_config.output.tex.path} && ${latex_compiler} output_file_path`;
+      const latex_compile_command = `cd ${chordown_config.base}${chordown_config.output.tex.path} && ${latex_compiler} output_file_path`;
       console.log(latex_compile_command);
       shell.exec(latex_compile_command, { silent: true });
     }

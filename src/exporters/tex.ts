@@ -1,7 +1,7 @@
 import { IChordown, ILine } from "../interfaces";
 import { IConfig } from "../config";
 
-const preamble: string = `
+const preamble = `
 \\documentclass[12pt]{article}
 \\usepackage[chorded, noshading]{songs}
 
@@ -68,7 +68,7 @@ function export_tex_line(line: ILine): string {
     });
   }
 
-  let out: string = "";
+  let out = "";
   if (chords == null) {
     out += lyrics.join("");
   } else {
@@ -105,22 +105,22 @@ export function export_tex(chordown: IChordown, config: IConfig): string {
   // }
   out += "\\begin{document}\n\\begin{songs}{}\n";
   const title: string = chordown.header.title;
-  let subtitle: string = "";
+  let subtitle = "";
   if (chordown.header.hasOwnProperty("subtitle")) {
     subtitle = "\\\\" + chordown.header.subtitle;
   }
-  let artist: string = "";
+  let artist = "";
   if (chordown.header.hasOwnProperty("artist")) {
     artist = "by={" + chordown.header.artist + "}";
   }
-  let artist_and_key: string = "";
+  let artist_and_key = "";
   if (
     chordown.header.hasOwnProperty("artist") &&
     chordown.header.hasOwnProperty("key")
   ) {
     artist_and_key = ", ";
   }
-  let key: string = "";
+  let key = "";
   if (chordown.header.hasOwnProperty("key")) {
     key = "key={" + chordown.header.key + "}";
   }

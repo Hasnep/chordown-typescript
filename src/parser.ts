@@ -5,12 +5,12 @@ import {
   linetype_blank,
   linetype_chord,
   linetype_lyric,
-  linetype_section,
+  linetype_section
 } from "./line-types";
 import { split_lines, to_sentence_case } from "./string-functions";
 
 export function separate_header(
-  lines: string[],
+  lines: string[]
 ): { header: string[]; body: string[] } {
   // given a list of lines, finds the header and splits into header and body
 
@@ -32,7 +32,7 @@ export function separate_header(
       header_end = i;
       return {
         header: lines.slice(header_start, header_end),
-        body: lines.slice(header_end + 1),
+        body: lines.slice(header_end + 1)
       };
     }
   }
@@ -74,7 +74,7 @@ export function parse_line_text(line: string): string[] {
 }
 
 export function parse_line_section(
-  line: string,
+  line: string
 ): { name: string; repeats: number } {
   const repeat_regex = /\(?x(\d+)\)?/;
   const repeats_match = line.match(repeat_regex);
@@ -130,7 +130,7 @@ export function parse_body(body: string): ISection[] {
           current_section.lines.push(current_line);
           current_line = {
             chords: null,
-            lyrics: null,
+            lyrics: null
           };
         }
         // replace the current line's chords
@@ -143,7 +143,7 @@ export function parse_body(body: string): ISection[] {
           current_section.lines.push(current_line);
           current_line = {
             chords: null,
-            lyrics: null,
+            lyrics: null
           };
         }
         // replace the current line's lyrics
@@ -154,7 +154,7 @@ export function parse_body(body: string): ISection[] {
           if (current_line.chords.length + 1 !== current_line.lyrics.length) {
             console.warn(
               "Different number of chords and lyrics on this line: " +
-                current_line.lyrics.join(""),
+                current_line.lyrics.join("")
             );
           }
         }

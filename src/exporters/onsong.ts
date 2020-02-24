@@ -2,7 +2,7 @@ import { IChordown, ILine } from "../interfaces";
 
 function export_onsong_line(line: ILine): string {
   let { chords, lyrics } = line;
-  let out: string = "";
+  let out = "";
   if (chords == null) {
     out += lyrics.join("");
   } else {
@@ -20,7 +20,7 @@ function export_onsong_line(line: ILine): string {
 }
 
 export function export_onsong(chordown: IChordown): string {
-  let out: string = "";
+  let out = "";
 
   out += chordown.header.title;
   if (chordown.header.hasOwnProperty("subtitle")) {

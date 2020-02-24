@@ -3,7 +3,7 @@ import { to_sentence_case } from "../string-functions";
 
 function export_plaintext_line(line: ILine): string {
   const { chords, lyrics } = line;
-  let out: string = "";
+  let out = "";
   if (chords == null) {
     out += lyrics.join("") + "\n";
   } else if (lyrics == null) {
@@ -14,7 +14,7 @@ function export_plaintext_line(line: ILine): string {
     for (let i = 1; i < lyrics.length; i++) {
       const n_spaces: number = Math.max(
         lyrics[i].length,
-        chords[i - 1].length + 1,
+        chords[i - 1].length + 1
       );
       lyrics_out += lyrics[i].padEnd(n_spaces);
       chords_out += chords[i - 1].padEnd(n_spaces);
@@ -25,7 +25,7 @@ function export_plaintext_line(line: ILine): string {
 }
 
 export function export_plaintext(chordown: IChordown): string {
-  let out: string = "";
+  let out = "";
   if (
     !(
       Object.keys(chordown.header).length <= 1 &&

@@ -1,10 +1,10 @@
 import { first_character } from "./string-functions";
 
 // line types
-export const linetype_blank: number = 0;
-export const linetype_lyric: number = 1;
-export const linetype_chord: number = 2;
-export const linetype_section: number = 3;
+export const linetype_blank = 0;
+export const linetype_lyric = 1;
+export const linetype_chord = 2;
+export const linetype_section = 3;
 
 // checking line types
 export function is_linetype_blank(line: string): boolean {

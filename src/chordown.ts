@@ -10,6 +10,6 @@ export function chordown(inupt_text: string): IChordown {
   }
   return {
     header: parse_header(header.join("\n")),
-    body: parse_body(body.join("\n")),
+    body: parse_body(body.join("\n"))
   };
 }
