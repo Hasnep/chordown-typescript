@@ -9,7 +9,7 @@ import {
 import * as toml from "toml";
 import { get_file_path } from "./string-functions";
 
-export function read_file_smart(filepath: string): string {
+export const read_file_smart = (filepath: string): string => {
   // reads the file in the location specified in the input and errors if the file cannot be read
   let str: string;
   try {
@@ -19,9 +19,9 @@ export function read_file_smart(filepath: string): string {
     process.exit();
   }
   return str;
-}
+};
 
-export function write_file_smart(text: string, filename: string): void {
+export const write_file_smart = (text: string, filename: string): void => {
   make_sure_folder(get_file_path(filename));
   try {
     writeFileSync(filename, text, {});
@@ -29,10 +29,10 @@ export function write_file_smart(text: string, filename: string): void {
     console.error(`Could not write to '${filename}'.`);
     process.exit();
   }
-}
+};
 
 // parses a string as TOML with some helping functions to fix syntax mistakes
-export function read_toml_smart(str: string): object {
+export const read_toml_smart = (str: string): object => {
   try {
     return toml.parse(str);
   } catch (e) {
@@ -40,9 +40,9 @@ export function read_toml_smart(str: string): object {
       `Parsing error on line ${e.line}, column ${e.column}: ${e.message}`
     );
   }
-}
+};
 
-export function path_to_list_of_files(folder_path: string): string[] {
+export const path_to_list_of_files = (folder_path: string): string[] => {
   // lists all the files in a directory
 
   const list_of_paths: string[] = readdirSync(folder_path);
@@ -54,13 +54,13 @@ export function path_to_list_of_files(folder_path: string): string[] {
     }
   }
   return list_of_files;
-}
+};
 
-function make_sure_folder(folder_path: string): void {
+const make_sure_folder = (folder_path: string): void => {
   mkdirSync(folder_path, { recursive: true });
-}
+};
 
-export function delete_folder(folder_path: string): void {
+export const delete_folder = (folder_path: string): void => {
   // deletes a folder
   removeSync(folder_path, {});
-}
+};
