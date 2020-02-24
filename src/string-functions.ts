@@ -2,7 +2,15 @@
 export function to_sentence_case(s: string) {
   // converts the input string to sentence case
   // i.e. capitalises the first character and makes all other characters lowercase
-  return s.slice(0, 1).toUpperCase() + s.slice(1).toLowerCase();
+  if (s.length > 0) {
+    if (s.slice(0, 1).match(/[a-z]/i)) {
+      return s.slice(0, 1).toUpperCase() + s.slice(1).toLowerCase();
+    } else {
+      return s.slice(0, 1) + to_sentence_case(s.slice(1));
+    }
+  } else {
+    return "";
+  }
 }
 
 export function first_character(line: string): string {
