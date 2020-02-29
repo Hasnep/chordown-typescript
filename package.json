@@ -36,9 +36,10 @@
   },
   "scripts": {
     "test": "mocha -r ts-node/register test/**/*.ts",
-    "coverage": "nyc report --reporter=json && codecov -f coverage/coverage-final.json",
-    "lint": "eslint src/**/*.ts src/*.ts test/**/*.ts test/*.ts",
-    "fix": "eslint --fix src/**/*.ts src/*.ts test/**/*.ts test/*.ts",
+    "test-coverage": "nyc npm run test",
+    "codecov": "nyc report --reporter=json > .coverage.json && codecov --file .coverage.json",
+    "lint": "eslint --ext .ts src/ test/",
+    "fix": "eslint --fix --ext .ts src/ test/",
     "build": "tsc -p tsconfig.json",
     "watch": "tsc -p tsconfig.json --watch",
     "start": "node dist/src/chordown.js"
