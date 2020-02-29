@@ -13,7 +13,7 @@
     "sourceType": "module",
     "project": "tsconfig.json"
   },
-  "env": { "mocha": true },
+  "env": { "node": true, "mocha": true },
   "rules": {
     "prefer-arrow/prefer-arrow-functions": "warn",
     "camelcase": "off",
