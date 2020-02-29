@@ -1,4 +1,3 @@
-coverage:
-  status:
-    project:
-      default: true
+parsers:
+  javascript:
+    enable_partials: yes
