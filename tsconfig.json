@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "paths": { "*": ["types/*"] },
     "module": "commonjs",
-    "target": "es2018",
+    "target": "ES5",
     "outDir": "dist/",
     "sourceMap": true
   },
