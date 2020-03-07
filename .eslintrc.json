@@ -1,6 +1,6 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["prefer-arrow"],
+  "plugins": ["@typescript-eslint", "prettier", "prefer-arrow"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
@@ -15,13 +15,13 @@
   },
   "env": { "mocha": true },
   "rules": {
-    "prefer-arrow/prefer-arrow-functions": "warn",
+    "prefer-arrow/prefer-arrow-functions": "error",
     "camelcase": "off",
     "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/interface-name-prefix": [
-      "warn",
+      "error",
       { "prefixWithI": "always" }
     ],
-    "prettier/prettier": "error"
+    "prettier/prettier": "warn"
   }
 }
