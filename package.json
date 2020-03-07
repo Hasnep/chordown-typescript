@@ -15,7 +15,6 @@
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0",
     "@types/chai": "^4.2",
-    "@types/js-yaml": "^3.12",
     "@types/mocha": "^7.0",
     "@types/node": "^13.7",
     "@typescript-eslint/eslint-plugin": "^2.22",
