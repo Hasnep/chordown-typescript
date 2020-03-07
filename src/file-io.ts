@@ -21,6 +21,10 @@ export const read_file_smart = (filepath: string): string => {
   return str;
 };
 
+const make_sure_folder = (folder_path: string): void => {
+  mkdirSync(folder_path, { recursive: true });
+};
+
 export const write_file_smart = (text: string, filename: string): void => {
   make_sure_folder(get_file_path(filename));
   try {
@@ -54,10 +58,6 @@ export const path_to_list_of_files = (folder_path: string): string[] => {
     }
   }
   return list_of_files;
-};
-
-const make_sure_folder = (folder_path: string): void => {
-  mkdirSync(folder_path, { recursive: true });
 };
 
 export const delete_folder = (folder_path: string): void => {

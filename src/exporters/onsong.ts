@@ -1,7 +1,7 @@
 import { IChordown, ILine } from "../interfaces";
 
 export const export_onsong_line = (line: ILine): string => {
-  let { chords, lyrics } = line;
+  const { chords, lyrics } = line;
   let out = "";
   if (chords == null) {
     out += lyrics.join("");
@@ -23,20 +23,21 @@ export const export_onsong = (chordown: IChordown): string => {
   let out = "";
 
   out += chordown.header.title;
-  if (chordown.header.hasOwnProperty("subtitle")) {
+
+  if (Object.prototype.hasOwnProperty.call(chordown.header, "subtitle")) {
     out += " (" + chordown.header.subtitle + ")";
   }
   out += "\n";
-  if (chordown.header.hasOwnProperty("artist")) {
+  if (Object.prototype.hasOwnProperty.call(chordown.header, "artist")) {
     out += chordown.header.artist;
   }
   out += "\n";
   out += "Key:";
-  if (chordown.header.hasOwnProperty("key")) {
+  if (Object.prototype.hasOwnProperty.call(chordown.header, "key")) {
     out += " [" + chordown.header.key + "]";
   }
   out += "\n";
-  if (chordown.header.hasOwnProperty("capo")) {
+  if (Object.prototype.hasOwnProperty.call(chordown.header, "capo")) {
     out += "Capo: " + chordown.header.key + "\n";
   }
   out += "\n";

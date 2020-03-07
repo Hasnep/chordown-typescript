@@ -4,12 +4,9 @@ import { parse_body, parse_header, separate_header } from "./parser";
 import { split_lines } from "./string-functions";
 
 export const chordown = (inupt_text: string): IChordown => {
-  let { header, body } = separate_header(split_lines(inupt_text));
-  if (header == null) {
-    header = [""];
-  }
+  const { header, body } = separate_header(split_lines(inupt_text));
   return {
-    header: parse_header(header.join("\n")),
+    header: parse_header(header == null ? "" : header.join("\n")),
     body: parse_body(body.join("\n"))
   };
 };

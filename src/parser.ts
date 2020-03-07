@@ -77,7 +77,7 @@ export const parse_line_section = (
   line: string
 ): { name: string; repeats: number } => {
   const repeat_regex = /\(?x(\d+)\)?/;
-  const repeats_match = line.match(repeat_regex);
+  const repeats_match = repeat_regex.exec(line);
   let n_repeats: number = null;
   if (repeats_match !== null) {
     n_repeats = Number(repeats_match[1]);
@@ -90,6 +90,13 @@ export const parse_line_section = (
   line = to_sentence_case(line);
   return { name: line, repeats: n_repeats };
 };
+export const is_line_blank = (line: ILine): boolean => {
+  return line.chords == null && line.lyrics == null;
+};
+
+export const is_section_blank = (section: ISection): boolean => {
+  return section.lines.length === 0;
+};
 
 export const parse_body = (body: string): ISection[] => {
   const body_parsed: ISection[] = []; // initialise output object
@@ -101,6 +108,7 @@ export const parse_body = (body: string): ISection[] => {
 
   // loop over each line
   for (const line of split_lines(body)) {
+    let parsed_section;
     switch (get_linetype(line)) {
       case linetype_blank:
         break;
@@ -119,7 +127,7 @@ export const parse_body = (body: string): ISection[] => {
 
         // start a new section
         current_section = { name: null, repeats: null, lines: [] };
-        const parsed_section = parse_line_section(line);
+        parsed_section = parse_line_section(line);
         current_section.name = parsed_section.name;
         current_section.repeats = parsed_section.repeats;
         break;
@@ -171,12 +179,4 @@ export const parse_body = (body: string): ISection[] => {
     body_parsed.push(current_section);
   }
   return body_parsed;
-};
-
-export const is_line_blank = (line: ILine): boolean => {
-  return line.chords == null && line.lyrics == null;
-};
-
-export const is_section_blank = (section: ISection): boolean => {
-  return section.lines.length === 0;
 };

@@ -53,6 +53,14 @@ const preamble = `
 % \\renewcommand\\versejustify{\\justifyright}
 `;
 
+export const escape_tex = (s: string): string => {
+  if (s != null) {
+    return s.toString().replace("&", "\\&");
+  } else {
+    return null;
+  }
+};
+
 const export_tex_line = (line: ILine): string => {
   let { chords, lyrics } = line;
 
@@ -106,22 +114,22 @@ export const export_tex = (chordown: IChordown, config: IConfig): string => {
   out += "\\begin{document}\n\\begin{songs}{}\n";
   const title: string = chordown.header.title;
   let subtitle = "";
-  if (chordown.header.hasOwnProperty("subtitle")) {
+  if (Object.prototype.hasOwnProperty.call(chordown.header, "subtitle")) {
     subtitle = "\\\\" + chordown.header.subtitle;
   }
   let artist = "";
-  if (chordown.header.hasOwnProperty("artist")) {
+  if (Object.prototype.hasOwnProperty.call(chordown.header, "artist")) {
     artist = "by={" + chordown.header.artist + "}";
   }
   let artist_and_key = "";
   if (
-    chordown.header.hasOwnProperty("artist") &&
-    chordown.header.hasOwnProperty("key")
+    Object.prototype.hasOwnProperty.call(chordown.header, "artist") &&
+    Object.prototype.hasOwnProperty.call(chordown.header, "key")
   ) {
     artist_and_key = ", ";
   }
   let key = "";
-  if (chordown.header.hasOwnProperty("key")) {
+  if (Object.prototype.hasOwnProperty.call(chordown.header, "key")) {
     key = "key={" + chordown.header.key + "}";
   }
   out +=
@@ -142,12 +150,4 @@ export const export_tex = (chordown: IChordown, config: IConfig): string => {
     out += "\\endverse\n";
   }
   return out + "\\endsong\n\\end{songs}\n\\end{document}\n";
-};
-
-export const escape_tex = (s: string): string => {
-  if (s != null) {
-    return s.toString().replace("&", "\\&");
-  } else {
-    return null;
-  }
 };
