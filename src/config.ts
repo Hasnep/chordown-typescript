@@ -56,7 +56,7 @@ export const read_config_file = (config_path: string): IConfig => {
 
 export const config_to_file_paths = (
   config: IConfig
-): { input: string[]; output: any } => {
+): { input: string[]; output: object } => {
   const input_folder_path: string = path.join(config.input.path);
   let input_file_paths: string[];
   try {
