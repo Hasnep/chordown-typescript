@@ -7,6 +7,27 @@ My own markdown based chordsheet converter. Written in Typescript and based on [
 
 Chordown files can be converted to plaintext, PDF (using (Xe)LaTeX), OnSong and (in the future) ChordPro.
 
+## Installation
+
+Clone the repo using ssh
+
+```shell
+git clone git@github.com:Hasnep/chordown.git
+```
+
+or using HTTPS
+
+```shell
+git clone https://github.com/Hasnep/chordown.git
+```
+
+```shell
+cd chordown/
+npm install # Install dependencies
+npm run build # Compile the Typescript
+npm link # create a global symlink
+```
+
 ## Chordown files
 
 ### Header
@@ -87,10 +108,3 @@ compile = "xelatex"
 [output.onsong]
 path = "~/chords/output/onsong/"
 ```
-
-## Commands
-
-- Compile: `npm run build`
-  - To rebuild continuously: `npm run build -- --watch`
-- Run: `npm start -- cdconfig.yaml`
-- Test: `npm test`
