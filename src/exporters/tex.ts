@@ -132,15 +132,7 @@ export const export_tex = (chordown: IChordown, config: IConfig): string => {
   if (Object.prototype.hasOwnProperty.call(chordown.header, "key")) {
     key = "key={" + chordown.header.key + "}";
   }
-  out +=
-    "\\beginsong{" +
-    title +
-    subtitle +
-    "}[" +
-    artist +
-    artist_and_key +
-    key +
-    "]\n";
+  out += `\\beginsong{${title}${subtitle}}[${artist}${artist_and_key}${key}]\n`;
 
   for (const section of chordown.body) {
     out += "\\myverse{" + section.name + "}\n\\beginverse\n";
