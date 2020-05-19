@@ -21,10 +21,10 @@ interface IConfigInput {
 }
 
 export interface IConfigOutputs {
-  json?: object;
-  txt?: object;
+  json?: IConfigOutput;
+  txt?: IConfigOutput;
   tex?: ITeXConfigOutput;
-  onsong?: object;
+  onsong?: IConfigOutput;
 }
 
 export interface IConfigOutput {
@@ -56,7 +56,7 @@ export const read_config_file = (config_path: string): IConfig => {
 
 export const config_to_file_paths = (
   config: IConfig
-): { input: string[]; output: object } => {
+): { input: string[]; output: IConfigOutputs } => {
   const input_folder_path: string = path.join(config.input.path);
   let input_file_paths: string[];
   try {
