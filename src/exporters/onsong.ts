@@ -1,7 +1,8 @@
 import { IChordown, ILine } from "../interfaces";
 
 export const export_onsong_line = (line: ILine): string => {
-  const { chords, lyrics } = line;
+  let chords = line[0];
+  const lyrics = line[1];
   let out = "";
   if (chords == null) {
     out += lyrics.join("");
