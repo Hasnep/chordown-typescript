@@ -52,7 +52,7 @@ for (let i = 0; i < input_file_paths.length; i++) {
     );
     if (Object.keys(chordown_config.output.tex).includes("compile")) {
       const latex_compiler: string = chordown_config.output.tex.compile;
-      const latex_compile_command = `cd ${chordown_config.base}${chordown_config.output.tex.path} && ${latex_compiler} output_file_path`;
+      const latex_compile_command = `cd ${chordown_config.output.tex.path} && ${latex_compiler} output_file_path`;
       console.log(latex_compile_command);
       shell.exec(latex_compile_command, { silent: true });
     }
