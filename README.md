@@ -1,7 +1,6 @@
 # Chordown
 
-[![Build Status](https://travis-ci.com/Hasnep/chordown.svg?branch=master)](https://travis-ci.com/Hasnep/chordown)
-[![codecov](https://codecov.io/gh/Hasnep/chordown/branch/master/graph/badge.svg)](https://codecov.io/gh/Hasnep/chordown)
+I've abandoned this version of this project and have switched to a [Rust rewrite](https://github.com/Hasnep/chordown).
 
 My own markdown based chordsheet converter. Written in Typescript and based on [Markato](https://markato.studio/).
 
